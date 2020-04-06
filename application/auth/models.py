@@ -7,8 +7,8 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    username = db.Column(db.String(144), unique=True, nullable=False)
-    password = db.Column(db.String(144), nullable=False)
+    username = db.Column(db.String(30), nullable=False)
+    password = db.Column(db.String(30), nullable=False)
     admin = db.Column(db.Boolean, nullable=False)
 
     items = db.relationship("Item", backref='account', lazy=True)
@@ -31,14 +31,5 @@ class User(db.Model):
         return True
 
     def is_admin(self):
-        return False
+        return self.admin
 
-    @staticmethod
-    def most_items():
-        stmt = text("SELECT Account.username, COUNT(Item.id) AS item FROM Account" " LEFT JOIN Item ON Account.id = Item.account_id" " GROUP BY Account.username" " ORDER BY item DESC")
-        result = db.engine.execute(stmt)
-        response = []
-        for row in result:
-            response.append({"username:":row[0], "id":row[1]})
-       
-        return response

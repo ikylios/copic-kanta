@@ -15,7 +15,6 @@ class ItemForm(FlaskForm):
 
 
 class PersonalItemForm(FlaskForm):
-	name = StringField("Item name", [validators.Length(min=3)])
 	colorcode = QuerySelectField(u'Item colorcode', query_factory = Colorcode.colorcode_list, get_label='code')
 	ptype = QuerySelectField(u'Item type', query_factory = Ptype.ptype_list, get_label='name')
 
