@@ -27,7 +27,7 @@ def auth_form():
     form = LoginForm(request.form)
     
     if not form.validate():
-       return render_template("items/new.html", form = form)
+        return render_template("auth/new.html", form = form, error = "Invalid value(s).")
     
     user = User.query.filter_by(username=form.username.data).first()
     if user: 

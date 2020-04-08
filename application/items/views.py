@@ -11,40 +11,28 @@ from application.ptype.models import Ptype
 from application.auth.models import User
 
 @app.route("/items/", methods=["GET"])
+@login_required
 def items_index():
-	return render_template("items/list.html", items = Item.query.all())
-
+#	return render_template("items/withusernames.html", items = Item.query.all(), users = User.with_username())
+        return render_template("items/list.html", items = Item.query.all())
 
 @app.route("/items/myitems/", methods=["GET"])
 @login_required
 def items_myindex():
-        return render_template("items/list.html", items =
+        return render_template("items/listpersonal.html", items =
                Item.query.filter(Item.account_id == current_user.id))
 
 
 @app.route("/items/lowink/", methods=["GET"])
 def items_lowink():
 	return render_template("items/list.html", items =
-		Item.query.filter(Item.lowink == True))
+		Item.query.filter(Item.lowink == True)) 
 
 @app.route("/items/most/", methods=["GET"])
 def items_most():
-        return render_template("items/mostquery.html", users =
-                User.most_items(), items = Item.query.all())
+        return render_template("items/list.html", items = Item.query.all())
 
-"""
-@app.route("/items/new/")
-@login_required
-def items_form():
-        return render_template("items/new.html", form = ItemForm())
-"""
-@app.route("/items/new/personal/")
-@login_required
-def personal_items_form():
-        return render_template("items/personal.html", form = PersonalItemForm())
-
-
-@app.route("/items/<item_id>/", methods=["POST"])
+@app.route("/items/setink/<item_id>/", methods=["POST"])
 @login_required
 def items_set_lowink(item_id):
 
@@ -57,6 +45,7 @@ def items_set_lowink(item_id):
     db.session().commit()
 
     return redirect(url_for("items_index"))
+
 
 @app.route("/items/delete/<item_id>/", methods=["POST"])
 @login_required
@@ -82,7 +71,6 @@ def items_form():
     
     qcc = Colorcode.query.filter(Colorcode.code == form.colorcode.data).first()
     if not qcc:
-        print("AAAAAAA")
         cc = Colorcode(form.colorcode.data)    
         db.session.add(cc)
 
@@ -100,11 +88,11 @@ def items_form():
     return redirect(url_for("items_index"))
 
 
-@app.route("/items/personal/", methods=["GET", "POST"])
+@app.route("/items/new/personal/", methods=["GET", "POST"])
 @login_required
-def personal_items_create():
+def personal_items_form():
     if request.method == "GET":
-        return render_template("items/personal.html", form = PersonalForm())
+        return render_template("items/personal.html", form = PersonalItemForm())
 
     form = PersonalItemForm(request.form)
 
@@ -113,6 +101,7 @@ def personal_items_create():
 
     cc = Colorcode.query.filter(Colorcode.code == form.colorcode.data.code).first()
     qitem = Item.query.filter(Item.colorcode == form.colorcode.data.code, Item.ptype == form.ptype.data.name, Item.account_id == current_user.id).first()
+
     if qitem:
         return render_template("items/personal.html", form = form,
                                error = "Product already in collection.")

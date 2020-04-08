@@ -33,3 +33,6 @@ class User(db.Model):
     def is_admin(self):
         return self.admin
 
+    @staticmethod
+    def with_username():
+        stmt = text("SELECT Account.name FROM Account JOIN Item.account_id = Account.id")
