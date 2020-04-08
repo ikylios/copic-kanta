@@ -12,6 +12,7 @@ Käyttäjät voivat lisätä tietokannassa olevia tuotteita Add an item to my li
 ### Tuotteen poistaminen omasta kokoelmasta
 Tuote poistetaan List my items -näkymässä painamalla rivin Delete item -nappia.
 
+
 ## Admin-oikeudella varustetut käyttäjät
 Admineilla vasta hauskaa onkin. Adminit voivat lisätä kelpoja tuotteita tietokantaan, joita käyttäjät voivat lisätä omaan kokoelmaansa. Lisäksi adminit voivat lisätä uusia tuotetyyppejä.
 
@@ -20,6 +21,8 @@ Tietokantaan lisätään uusi tuote Add a new product (admin) -näkymässä. Uud
 
 ### Tuotetyypin lisääminen tietokantaan
 Uudet tuotetyypit lisätään Add a new type (admin) -näkymässä.
+
+
 
 
 # Tietokannan elämän alussa
