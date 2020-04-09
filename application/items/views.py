@@ -1,6 +1,6 @@
-from application import app, db
+from application import app, db, login_required
 from flask import render_template, request, redirect, url_for
-from flask_login import login_required, current_user
+from flask_login import current_user
 
 from application.items.models import Item
 from application.items.forms import ItemForm, PersonalItemForm
@@ -52,6 +52,10 @@ def items_set_lowink(item_id):
 def items_delete(item_id):
 
     item = Item.query.get(item_id)
+
+    if item.account_id != current_user.id:
+        return login_manager.unauthorized()
+
     db.session.delete(item)
     db.session().commit()
 
@@ -59,7 +63,7 @@ def items_delete(item_id):
 
 
 @app.route("/items/new/general", methods=["GET", "POST"])
-@login_required
+@login_required(role="ADMIN")
 def items_form():
     form = ItemForm(request.form)
     
