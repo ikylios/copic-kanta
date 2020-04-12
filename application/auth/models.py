@@ -1,8 +1,6 @@
 from application import db
 from sqlalchemy import text
 
-import sys
-
 class User(db.Model):
 
     __tablename__ = "account"
@@ -15,9 +13,10 @@ class User(db.Model):
 
     items = db.relationship("Item", backref='account', lazy=True)
 
-    def __init__(self, username, password, admin):
+    def __init__(self, username, password):
         self.username = username
         self.password = password
+        self.admin = False
 
     def get_id(self):
         return self.id
@@ -32,7 +31,8 @@ class User(db.Model):
         return True
 
     def is_admin(self):
-        return self.admin
+        if self.admin: return True
+        return False
 
     def roles(self):
         if self.admin: 
