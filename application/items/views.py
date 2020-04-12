@@ -11,7 +11,7 @@ from application.ptype.models import Ptype
 from application.auth.models import User
 
 @app.route("/items/", methods=["GET"])
-@login_required
+@login_required(role="ADMIN")
 def items_index():
 #	return render_template("items/withusernames.html", items = Item.query.all(), users = User.with_username())
         return render_template("items/list.html", items = Item.query.all())
@@ -23,16 +23,16 @@ def items_myindex():
                Item.query.filter(Item.account_id == current_user.id))
 
 
-@app.route("/items/lowink/", methods=["GET"])
+@app.route("/items/myitems/lowink/", methods=["GET"])
 def items_lowink():
-	return render_template("items/list.html", items =
-		Item.query.filter(Item.lowink == True)) 
+	return render_template("items/listpersonal.html", items =
+		Item.query.filter(Item.lowink == True, Item.account_id == current_user.id)) 
 
 @app.route("/items/most/", methods=["GET"])
 def items_most():
         return render_template("items/list.html", items = Item.query.all())
 
-@app.route("/items/setink/<item_id>/", methods=["POST"])
+@app.route("/items/myitems/setink/<item_id>/", methods=["POST"])
 @login_required
 def items_set_lowink(item_id):
 
@@ -44,7 +44,7 @@ def items_set_lowink(item_id):
 
     db.session().commit()
 
-    return redirect(url_for("items_index"))
+    return redirect(url_for("items_myindex"))
 
 
 @app.route("/items/delete/<item_id>/", methods=["POST"])
@@ -104,12 +104,20 @@ def personal_items_form():
        return render_template("items/personal.html", form = form)
 
     cc = Colorcode.query.filter(Colorcode.code == form.colorcode.data.code).first()
-    qitem = Item.query.filter(Item.colorcode == form.colorcode.data.code, Item.ptype == form.ptype.data.name, Item.account_id == current_user.id).first()
 
-    if qitem:
+    validProduct = Item.query.filter(Item.colorcode == form.colorcode.data.code, Item.ptype == form.ptype.data.name).first()
+
+    if not validProduct:
+        return render_template("items/personal.html", form = form,
+                               error = "Product does not exist.")
+
+    duplicate = Item.query.filter(Item.colorcode == form.colorcode.data.code, Item.ptype == form.ptype.data.name, Item.account_id == current_user.id).first()
+
+    if duplicate:
         return render_template("items/personal.html", form = form,
                                error = "Product already in collection.")
-    
+        
+   
     itname = Item.query.filter_by(colorcode=form.colorcode.data.code).first().get_name()
     item = Item(itname, form.colorcode.data.code, form.ptype.data.name)
     item.account_id = current_user.id

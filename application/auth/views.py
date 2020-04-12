@@ -17,7 +17,7 @@ def auth_login():
         return render_template("auth/loginform.html", form = form, error = "No such username or password.")
 
     login_user(user)
-    return redirect(url_for("items_index"))
+    return redirect(url_for("items_myindex"))
 
 @app.route("/auth/new/", methods=["GET", "POST"])
 def auth_form():
@@ -33,13 +33,12 @@ def auth_form():
     if user: 
         return render_template("auth/new.html", form = form, error = "Username is taken.")
 
-    user = User(form.username.data, form.password.data)    
+    user = User(form.username.data, form.password.data, form.admin.data)    
 
     db.session().add(user)
     db.session().commit()
     
     return redirect(url_for("items_myindex"))
-#    return redirect(url_for("auth_create"))
 
 @app.route("/auth/logout")
 def auth_logout():

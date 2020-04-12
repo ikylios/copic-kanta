@@ -1,13 +1,13 @@
-from application import app, db
+from application import app, db, login_required
 from flask import render_template, request, redirect, url_for
-from flask_login import login_required, current_user
+from flask_login import current_user
 
 from application.ptype.models import Ptype
 from application.ptype.forms import PtypeForm
 
 
 @app.route("/ptype/new/", methods=["GET", "POST"])
-@login_required
+@login_required(role="ADMIN")
 def ptype_form():
     if request.method == "GET":
         return render_template("ptype/new.html", form = PtypeForm())

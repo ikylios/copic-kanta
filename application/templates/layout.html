@@ -20,36 +20,43 @@
       {% endif %}
     </div>
 
-    <div class="nav">
-      <div class="nav-scroller py-1">
-        <ul class="nav justify-content-center">
-	{% if current_user.is_authenticated %}	
-        <li class="nav-item">
-	  <a class="nav-link" href="{{ url_for('items_myindex') }}">List my items</a>
-	</li>
-        <li class="nav-item">
-	  <a class="nav-link" href="{{ url_for('personal_items_form') }}">Add an item to my list</a>
-	</li>
-	{% endif %}
-        {% if current_user.is_admin %}
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('items_index') }}">List users' items (admin)</a>
-  	</li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('items_form') }}">Add a new product (admin)</a>
-	</li> 
-        <li class ="nav-item">
-	  <a class="nav-link" href="{{ url_for('ptype_form') }}">Add a new type (admin)</a>
-        </li>
-        {% endif %}
-      </ul>
-    </div>
+
+    {% if current_user.is_authenticated %}
+       <div class="nav-scroller">
+         <ul class="nav justify-content-center">
+           <li class="nav-item">
+	     <a class="nav-link" href="{{ url_for('items_myindex') }}">My collection</a>
+	   </li>
+           <li class="nav-item">
+	     <a class="nav-link" href="{{ url_for('personal_items_form') }}">Add an item to my collection</a>
+	   </li>
+         </ul>
+       </div>
+       {% if "ADMIN" in current_user.roles() %}
+       <div class="nav-scroller">
+         <ul class="nav justify-content-center">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('items_index') }}">List users' items (admin)</a>
+  	  </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('items_form') }}">Add a new product (admin)</a>
+	  </li> 
+          <li class ="nav-item">
+	    <a class="nav-link" href="{{ url_for('ptype_form') }}">Add a new type (admin)</a>
+          </li>
+        </ul>
+      </div>
+      {% endif %}
+    {% endif %}
+    
+    
    
-    <main role="main" class="container">
-    {% block body %}
-    <p>Content</p>
-    {% endblock %}
-    </main>
+   
+   <main role="main" class="container">
+   {% block body %}
+   <p>Content</p>
+   {% endblock %}
+   </main>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
