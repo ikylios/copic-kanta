@@ -14,5 +14,5 @@ listaaminen, joissa muste on vähissä, tietyn värin perusteella hakeminen.
 
 Testitunnus: käyttäjänimi pablo ja salasana picasso
 
-![tietokantakaavio](https://github.com/ikylios/copic-kanta/blob/master/documentation/tietokantakaavio1.png)
+![tietokantakaavio](https://github.com/ikylios/copic-kanta/blob/master/documentation/tietokantakaavio2.png)
 
