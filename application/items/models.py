@@ -5,24 +5,15 @@ from sqlalchemy.sql import text
 class Item(db.Model):
         id = db.Column(db.Integer, primary_key=True)
 
-        name = db.Column(db.String(30), nullable=False)
-        colorcode = db.Column(db.String(30), nullable=False)
-        ptype = db.Column(db.String(30), nullable=False)
-#        type_id = db.Column(db.Integer, ForeignKey('type.id') nullable=False)
-#        ptype = relationship("Type", uselist=False)
-
         lowink = db.Column(db.Boolean, nullable=False)
-
-        account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
-
         date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
 
-        def __init__(self, name, colorcode, ptype):
-                self.name = name
-                self.ptype = ptype
-                self.lowink = False
-                self.colorcode = colorcode
+        account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
+        colorcode_id = db.Column(db.Integer, db.ForeignKey('colorcode.id'), nullable=False)
+        ptype_id = db.Column(db.Integer, db.ForeignKey('ptype.id'), nullable=False)
 
+        def __init__(self):
+            self.lowink = False
 
         def get_id(self):
             return self.id
@@ -47,27 +38,58 @@ class Item(db.Model):
                 return response
 
         @staticmethod
-        def in_masterlist(item):
-                stmt = text("SELECT Item.id FROM Item WHERE Item.name = '{}' AND Item.colorcode = '{}' AND Item.ptype = '{}'".format(item.name, item.colorcode, item.ptype))
-                result = db.engine.execute(stmt)
+        def general_index():
+                stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Account.username"
+                        " FROM Item" 
+                        " JOIN Account ON Item.account_id = Account.id" 
+                        " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
+                        " JOIN Ptype ON Item.ptype_id = Ptype.id"
+                        " ORDER BY Item.id DESC")
+                res = db.engine.execute(stmt)
 
                 response = []
+                for row in res:
+#                    print("row:" + str(row))
+                    response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "username":row[3]})
+#                    for x, y in response[0].items():
+#                        print(x, y)
+#                    print("res0:" + str(response[0]))
+#                print("response: " + str(response)) 
+                return response
+        
+        @staticmethod
+        def personal_index(user_id):
+                stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.id"
+                        " FROM Item" 
+                        " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
+                        " JOIN Ptype ON Item.ptype_id = Ptype.id"
+                        " WHERE Item.account_id = " + user_id +
+                        " ORDER BY Colorcode.code")
+                res = db.engine.execute(stmt)
 
-                if not response:
-                        return False
+                response = []
+                for row in res:
+                    lowink_status = "No" 
+                    if row[3]:
+                        lowink_status = "Yes"
+                    response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "id":row[4]})
+                return response
 
         @staticmethod
-        def in_personallist(item):
-            print("AAAAAAAAAAAAA")
-            stmt = text("SELECT Item.id FROM Item WHERE Item.colorcode = '{}' AND Item.account_id = '{}'".format(item.colorcode, item.account_id))
-            result = db.engine.execute(stmt)
-            print(result)
-            for row in res:
-                print(row[0])
-                print(row[1])
-            print("EEEEE")
-            resp = []
-            for row in result:
-                resp.append({row[0]})
-            if not resp:
-                return False
+        def find_lowink(user_id):
+                stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.id"
+                        " FROM Item" 
+                        " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
+                        " JOIN Ptype ON Item.ptype_id = Ptype.id"
+                        " WHERE Item.account_id = " + user_id +
+                        " AND Item.lowink = 1"
+                        " ORDER BY Item.id DESC")
+                res = db.engine.execute(stmt)
+
+                response = []
+                for row in res:
+                    lowink_status = "No" 
+                    if row[3]:
+                        lowink_status = "Yes"
+                    response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "id":row[4]})
+                return response

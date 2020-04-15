@@ -13,20 +13,17 @@ from application.auth.models import User
 @app.route("/items/", methods=["GET"])
 @login_required(role="ADMIN")
 def items_index():
-#	return render_template("items/withusernames.html", items = Item.query.all(), users = User.with_username())
-        return render_template("items/list.html", items = Item.query.all())
+        return render_template("items/list.html", general_index = Item.general_index())
 
 @app.route("/items/myitems/", methods=["GET"])
-@login_required
+@login_required(role="USER")
 def items_myindex():
-        return render_template("items/listpersonal.html", items =
-               Item.query.filter(Item.account_id == current_user.id))
+    return render_template("items/listpersonal.html", items = Item.personal_index(str(current_user.id)))
 
 
 @app.route("/items/myitems/lowink/", methods=["GET"])
 def items_lowink():
-	return render_template("items/listpersonal.html", items =
-		Item.query.filter(Item.lowink == True, Item.account_id == current_user.id)) 
+    return render_template("items/listpersonal.html", items = Item.find_lowink(str(current_user.id)))
 
 @app.route("/items/most/", methods=["GET"])
 def items_most():
@@ -59,7 +56,10 @@ def items_delete(item_id):
     db.session.delete(item)
     db.session().commit()
 
-    return redirect(url_for("items_index"))
+    if "ADMIN" in current_user.roles():
+       return redirect(url_for("items_index"))
+
+    return redirect(url_for("items_myindex"))
 
 
 @app.route("/items/new/general", methods=["GET", "POST"])
@@ -73,18 +73,21 @@ def items_form():
     if not form.validate():
        return render_template("items/new.html", form = form)
     
-    qcc = Colorcode.query.filter(Colorcode.code == form.colorcode.data).first()
-    if not qcc:
-        cc = Colorcode(form.colorcode.data)    
+    cc = Colorcode.query.filter(Colorcode.code == form.colorcode.data).first()
+    if not cc:
+        cc = Colorcode(form.colorcode.data, form.name.data)    
         db.session.add(cc)
 
-    qitem = Item.query.filter(Item.name == form.name.data, Item.colorcode == form.colorcode.data, Item.ptype == form.ptype.data.name).first()
+    ptype = Ptype.query.filter(Ptype.name == form.ptype.data.name).first()
+
+    qitem = Item.query.filter(Item.colorcode_id == cc.id, Item.ptype_id == ptype.id).first()
     if qitem:
         return render_template("items/new.html", form = form, error = "Product already in database.")
 
-    item = Item(form.name.data, form.colorcode.data, form.ptype.data.name)
-    item.lowink = False
-    item.account_id = current_user.id       
+    item = Item()
+    item.account_id = current_user.id
+    item.colorcode_id = cc.id
+    item.ptype_id = ptype.id
 
     db.session.add(item)  
     db.session().commit()
@@ -104,25 +107,26 @@ def personal_items_form():
        return render_template("items/personal.html", form = form)
 
     cc = Colorcode.query.filter(Colorcode.code == form.colorcode.data.code).first()
+    ptype = Ptype.query.filter(Ptype.name == form.ptype.data.name).first()
 
-    validProduct = Item.query.filter(Item.colorcode == form.colorcode.data.code, Item.ptype == form.ptype.data.name).first()
+    validProduct = Item.query.filter(Item.colorcode_id == cc.id, Item.ptype_id == ptype.id).first()
 
     if not validProduct:
         return render_template("items/personal.html", form = form,
                                error = "Product does not exist.")
 
-    duplicate = Item.query.filter(Item.colorcode == form.colorcode.data.code, Item.ptype == form.ptype.data.name, Item.account_id == current_user.id).first()
+    duplicate = Item.query.filter(Item.colorcode_id == cc.id, Item.ptype_id == ptype.id, Item.account_id == current_user.id).first()
 
     if duplicate:
         return render_template("items/personal.html", form = form,
                                error = "Product already in collection.")
         
-   
-    itname = Item.query.filter_by(colorcode=form.colorcode.data.code).first().get_name()
-    item = Item(itname, form.colorcode.data.code, form.ptype.data.name)
+    item = Item()
+    item.colorcode_id = cc.id
+    item.ptype_id = ptype.id
     item.account_id = current_user.id
 
     db.session.add(item)
     db.session().commit()
 
-    return redirect(url_for("items_index"))
+    return redirect(url_for("items_myindex"))

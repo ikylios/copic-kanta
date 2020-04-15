@@ -13,7 +13,7 @@ def hasWhitespaceOnly(form, field):
 
 class ItemForm(FlaskForm):
 	name = StringField("Item name", [validators.Length(min=2, max=25), validators.InputRequired(), hasWhitespaceOnly])
-	colorcode = StringField("Item colorcode", [validators.Length(min=2, max=25), validators.InputRequired(), hasWhitespaceOnly])
+	colorcode = StringField("Item colorcode", [validators.Length(min=1, max=25), validators.InputRequired(), hasWhitespaceOnly])
 	ptype = QuerySelectField(u'Item ptype', query_factory = Ptype.ptype_list, get_label='name')
 
 	class Meta:

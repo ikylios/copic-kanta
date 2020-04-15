@@ -9,6 +9,8 @@ class Ptype(db.Model):
 
     name = db.Column(db.String(30), nullable=False)
 
+    items = db.relationship("Item", backref="ptype", lazy=True)
+
 
     def __init__(self, name):
         self.name = name

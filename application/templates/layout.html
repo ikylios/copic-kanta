@@ -22,6 +22,7 @@
 
 
     {% if current_user.is_authenticated %}
+     {% if "USER" in current_user.roles() %}
        <div class="nav-scroller">
          <ul class="nav justify-content-center">
            <li class="nav-item">
@@ -32,7 +33,7 @@
 	   </li>
          </ul>
        </div>
-       {% if "ADMIN" in current_user.roles() %}
+       {% else %}
        <div class="nav-scroller">
          <ul class="nav justify-content-center">
           <li class="nav-item">

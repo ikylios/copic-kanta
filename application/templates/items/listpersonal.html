@@ -32,24 +32,22 @@
   </tr>
  </thead>
  <tbody>
-    {% for item in items %}
+    {% for dict_item in items %}
     <tr>
-      <td>{{ item.colorcode }}</td>
-      <td>{{ item.name }}</td>
-      <td>{{ item.ptype }}</td>
-      <td>{{ item.lowink }}</td>
-      {% if current_user.is_authenticated %}
+      <td>{{ dict_item.colorcode }}</td>
+      <td>{{ dict_item.colorname }}</td>
+      <td>{{ dict_item.ptype }}</td>
+      <td>{{ dict_item.lowink }}</td>
       <td>
-	<form method="POST" action="{{ url_for('items_set_lowink', item_id=item.id) }}">
+	<form method="POST" action="{{ url_for('items_set_lowink', item_id=dict_item.id) }}">
 	  <input type="submit" value="Switch ink status"/>
 	</form>
       </td>
       <td>
-       <form method="POST" action="{{ url_for('items_delete', item_id=item.id) }}" >
+       <form method="POST" action="{{ url_for('items_delete', item_id=dict_item.id) }}" >
           <input type="submit" value="Delete item"/>
         </form>
       </td>
-     {% endif %}
     </tr>
     {% endfor %}
  </tbody>

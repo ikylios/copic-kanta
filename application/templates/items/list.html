@@ -9,11 +9,6 @@
     <h2>Items</h2>	
   </div>
   <div class="row">
-    <div class="col-md-4">
-      <form action="{{ url_for('items_lowink') }}">
-        <button type="submit">List items with low ink</button>
-      </form>
-    </div>
     <div class="col-md-5">
       <form action="{{ url_for('items_most') }}">
         <button type="submit">Item amount by user (nonfunc)</button>
@@ -30,23 +25,22 @@
     <th scope="col">Product type</th>
     <th scope="col">User</th>
     <th scope="col"></th>
-    <th scope="col"></th>
   </tr>
  </thead>
  <tbody>
-    {% for item in items %}
+   {% if general_index is defined %}
+    {% for dict_item in general_index  %}
     <tr>
-      <td>{{ item.colorcode }}</td>
-      <td>{{ item.name }}</td>
-      <td>{{ item.ptype }}</td>
-      <td>{{ item.account_id }}</td>
-      <td>
-       <form method="POST" action="{{ url_for('items_delete', item_id=item.id) }}" >
-          <input type="submit" value="Delete item"/>
-        </form>
-      </td>
+      <td>{{ dict_item.colorcode }}</td>
+      <td>{{ dict_item.colorname }}</td>
+      <td>{{ dict_item.ptype }}</td>
+      <td>{{ dict_item.username }}</td>
+     <td>
+        <input type="submit" value="Delete item"/>
+     </td>
     </tr>
     {% endfor %}
+   {% endif %}
  </tbody>
 </table>
 

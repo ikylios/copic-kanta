@@ -7,12 +7,14 @@ class Colorcode(db.Model):
         __tablename__ = "colorcode"
 
         id = db.Column(db.Integer, primary_key=True)
-#        name = db.Column(db.String(30), nullable=False)
+        name = db.Column(db.String(30), nullable=False)
         code = db.Column(db.String(30), nullable=False)
 
-        def __init__(self, code):
+        items = db.relationship("Item", backref="colorcode", lazy=True)
+
+        def __init__(self, code, name):
                 self.code = code
-#                self.name = name
+                self.name = name
 
         @staticmethod
         def colorcode_list():
