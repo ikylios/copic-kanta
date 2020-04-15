@@ -82,7 +82,7 @@ class Item(db.Model):
                         " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
                         " JOIN Ptype ON Item.ptype_id = Ptype.id"
                         " WHERE Item.account_id = " + user_id +
-                        " AND Item.lowink = 1"
+                        " AND Item.lowink = '1'"
                         " ORDER BY Item.id DESC")
                 res = db.engine.execute(stmt)
 
