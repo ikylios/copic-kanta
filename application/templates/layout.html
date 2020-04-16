@@ -37,13 +37,16 @@
        <div class="nav-scroller">
          <ul class="nav justify-content-center">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('items_index') }}">List users' items (admin)</a>
+            <a class="nav-link" href="{{ url_for('items_index') }}">List users' items</a>
   	  </li>
+	  <li class ="nav-item">
+	    <a class="nav-link" href="{{ url_for('cc_ptype_index') }}">View valid products</a>
+          </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('items_form') }}">Add a new product (admin)</a>
+            <a class="nav-link" href="{{ url_for('items_form') }}">Add a new product</a>
 	  </li> 
           <li class ="nav-item">
-	    <a class="nav-link" href="{{ url_for('ptype_form') }}">Add a new type (admin)</a>
+	    <a class="nav-link" href="{{ url_for('ptype_form') }}">Add a new type</a>
           </li>
         </ul>
       </div>

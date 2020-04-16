@@ -8,6 +8,8 @@ from application.items.forms import ItemForm, PersonalItemForm
 from application.colorcode.models import Colorcode
 from application.ptype.models import Ptype
 
+from application.colorcode.models import Cc_ptype
+
 from application.auth.models import User
 
 @app.route("/items/", methods=["GET"])
@@ -26,7 +28,7 @@ def items_lowink():
     return render_template("items/listpersonal.html", items = Item.find_lowink(str(current_user.id)))
 
 @app.route("/items/most/", methods=["GET"])
-def items_most():
+def items_count():
         return render_template("items/list.html", items = Item.query.all())
 
 @app.route("/items/myitems/setink/<item_id>/", methods=["POST"])
@@ -49,9 +51,6 @@ def items_set_lowink(item_id):
 def items_delete(item_id):
 
     item = Item.query.get(item_id)
-
-    if item.account_id != current_user.id:
-        return login_manager.unauthorized()
 
     db.session.delete(item)
     db.session().commit()
@@ -80,19 +79,16 @@ def items_form():
 
     ptype = Ptype.query.filter(Ptype.name == form.ptype.data.name).first()
 
-    qitem = Item.query.filter(Item.colorcode_id == cc.id, Item.ptype_id == ptype.id).first()
-    if qitem:
+    duplicate = Cc_ptype.query.filter(Cc_ptype.colorcode_id == cc.id, Cc_ptype.ptype_id == ptype.id).first()
+    if duplicate:
         return render_template("items/new.html", form = form, error = "Product already in database.")
 
-    item = Item()
-    item.account_id = current_user.id
-    item.colorcode_id = cc.id
-    item.ptype_id = ptype.id
-
-    db.session.add(item)  
+    ccptype = Cc_ptype(cc.id, ptype.id)
+    db.session.add(ccptype)
+    
     db.session().commit()
 
-    return redirect(url_for("items_index"))
+    return redirect(url_for("cc_ptype_index"))
 
 
 @app.route("/items/new/personal/", methods=["GET", "POST"])
@@ -109,8 +105,7 @@ def personal_items_form():
     cc = Colorcode.query.filter(Colorcode.code == form.colorcode.data.code).first()
     ptype = Ptype.query.filter(Ptype.name == form.ptype.data.name).first()
 
-    validProduct = Item.query.filter(Item.colorcode_id == cc.id, Item.ptype_id == ptype.id).first()
-
+    validProduct = Cc_ptype.query.filter(Cc_ptype.colorcode_id == cc.id, Cc_ptype.ptype_id == ptype.id).first()
     if not validProduct:
         return render_template("items/personal.html", form = form,
                                error = "Product does not exist.")

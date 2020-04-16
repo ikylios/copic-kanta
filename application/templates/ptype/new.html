@@ -1,18 +1,22 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{{ error }}
+
 <div class="container p-2">
+ <h3>Add a new product type to database</h3>
  <form method="POST" action="{{ url_for('ptype_form') }}">
-  <div class="row p-1">
-    <div class="col-1.5"> {{ form.name.label }} </div>
-    <div class="col-2"> {{ form.name }} </div>
-  </div>
- <div class="row p-1">
+  <table cellpadding="5">
+  <tr>{{ error }}</tr>
+  <tr>
+    <td> {{ form.name.label }} </td>
+    <td> {{ form.name }} </td>
+  </tr>
+  <tr>
    <td colspan="2">
-     <input type="submit" value="Add product type"/>
+     <input type="submit" value="Submit"/>
    </td>
-   </div>
+  </tr>
+  </table>
  </form>
 </div>
 

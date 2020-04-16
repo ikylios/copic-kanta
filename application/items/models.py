@@ -24,18 +24,6 @@ class Item(db.Model):
         def get_name(self):
             return self.name
 
-        @staticmethod
-        def find_lowink():
-                stmt = text("SELECT Item.colorcode, Item.name, Item.type"
-                                " FROM Item WHERE Item.lowink = 1"
-                                " GROUP BY Item.account_id")
-                result = db.engine.execute(stmt)
-
-                response = []
-                for row in result:
-                    response.append({"colorcode":row[0], "name":row[1], "type":row[2]})
-
-                return response
 
         @staticmethod
         def general_index():
@@ -88,8 +76,8 @@ class Item(db.Model):
 
                 response = []
                 for row in res:
-                    lowink_status = "No" 
-                    if row[3]:
-                        lowink_status = "Yes"
-                    response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "id":row[4]})
+                    response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":"Yes", "id":row[4]})
                 return response
+
+
+

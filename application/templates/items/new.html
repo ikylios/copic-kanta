@@ -1,32 +1,37 @@
 {% extends "layout.html" %}
-  
+
+
 {% block body %}
-{{ error }}
-<form method="POST" action="{{ url_for('items_form') }}">
-<h3>Add new item to db</h3>
- <table>
-  <tr>
-   <td> {{ form.colorcode.label }} </td>
-   <td> {{ form.colorcode }} </td>
-  </tr>  
-  <tr>
-    <td> {{ form.name.label }} </td>
-    <td> {{ form.name }} </td>
-    <ul>
+
+<div class="container p-2">
+ <h3>Add a new item to database</h3>
+ <form method="POST" action="{{ url_for('items_form') }}">
+  <table cellpadding="5">
+   <tr>{{ error }}</tr>
+   <tr>
+    <td> {{ form.colorcode.label }} </td>
+    <td> {{ form.colorcode }} </td>
+   </tr>  
+   <tr>
+     <td> {{ form.name.label }} </td>
+     <td> {{ form.name }} </td>
+     <ul>
       {% for error in form.name.errors %}
         <li>{{ error }}</li>
       {% endfor %}
-    </ul>
-  </tr>
-  <tr>
-    <td> {{ form.ptype.label }} </td>
-    <td> {{ form.ptype }} </td>
-  </tr>
-  <tr>
+     </ul>
+   </tr>
+   <tr>
+     <td> {{ form.ptype.label }} </td>
+     <td> {{ form.ptype }} </td>
+   </tr>
+   <tr>
      <td colspan="2">
-       <input type="submit" value="Add a new item"/>
+       <input type="submit" value="Submit"/>
      </td>
-  </tr>
- </table>
-</form>
+   </tr>
+  </table>
+ </form>
+</div>
+
 {% endblock %}
