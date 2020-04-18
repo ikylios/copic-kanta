@@ -48,5 +48,7 @@ def auth_form():
     db.session().add(user)
     db.session().commit()
 
+    login_user(user)
+
     return redirect(url_for("items_myindex"))
 

@@ -3,6 +3,9 @@
 
 ## Käyttäjän toiminnallisuudet
 
+### Käyttäjän luominen
+Uusi käyttäjä luodaan sovelluksen yläpalkissa olevasta Sign up -napin takaa löytyvästä näkymästä. Rekisteröitymisen onnistuessa käyttäjä kirjataan
+
 ### Oman kokoelman tarkastelu
 Käyttäjän kokoelma näkyy List my items -näkymässä. Painamalla List items with low ink -nappia kokoelmasta suodattuu tuotteet, joihin käyttäjä on merkinnyt musteen olevan alhainen. Tuotteen mustestatus voidaan vaihtaa painamalla listan oikeassa reunassa olevaa Low ink - nappia.
 
@@ -25,5 +28,5 @@ Uudet tuotetyypit lisätään Add a new type (admin) -näkymässä.
 
 
 
-# Tietokannan elämän alussa
+## Copic-kannan elämän alussa
 Tietokantaan lisätään ensin vähintään yksi tuotetyyppi. Tämän jälkeen voidaan lisätä tuotteita.
