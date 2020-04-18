@@ -1,7 +1,7 @@
+# Copic-kanta
+
 Copic-huopakynät ovat lajinsa aatelia. Huopakynät tulevat yli 350 eri 
-värissä ja useassa eri mallissa. Lisäksi jokaisella sävyllä on täyttöpullo.
-Copic-kanta auttaa oman kokoelman ylläpidossa. Toimintoina on mm. tussien
-listaaminen, joissa muste on vähissä, tietyn värin perusteella hakeminen.
+värissä ja useassa eri mallissa. Lisäksi jokaisella sävyllä on täyttöpullo. Omien tuotteiden hallinnointi käy nopeasti hankalaksi. Copic-kanta auttaa oman kokoelman ylläpidossa. Toimintoina ovat mm. tussien listaaminen, joissa muste on vähissä, tietyn tuotteen hakeminen värin perusteella ja jaottelu tuotetyyppien mukaan.
 
 
 [Asennusohje](https://github.com/ikylios/copic-kanta/blob/master/documentation/installation.md)
@@ -13,9 +13,9 @@ listaaminen, joissa muste on vähissä, tietyn värin perusteella hakeminen.
 [User storyt](https://github.com/ikylios/copic-kanta/blob/master/documentation/userstories.md)
 
 
-[Heroku](https://copic-kanta.herokuapp.com/)
+[Heroku](https://copic-kanta.herokuapp.com/) Testitunnukset: käyttäjä: käyt, test. admin: pablo, picasso
 
-Testitunnukset: käyttäjä: käyt, test. admin: pablo, picasso
 
-![tietokantakaavio](https://github.com/ikylios/copic-kanta/blob/master/documentation/tietokantakaavio2.png)
+[Tietokannasta](https://github.com/ikylios/copic-kanta/blob/master/documentation/database.md)
+
 
