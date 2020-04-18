@@ -7,8 +7,8 @@
 
 
 ### CREATE TABLE -lauseet
-
-```CREATE TABLE ptype (
+```
+CREATE TABLE ptype (
 	id INTEGER NOT NULL, 
 	name VARCHAR(30) NOT NULL, 
 	PRIMARY KEY (id)
@@ -54,6 +54,8 @@ CREATE TABLE item (
 	FOREIGN KEY(account_id) REFERENCES account (id), 
 	FOREIGN KEY(colorcode_id) REFERENCES colorcode (id), 
 	FOREIGN KEY(ptype_id) REFERENCES ptype (id)
-);```
+);
+```
+
 
 Tärkeää on siis huomata että luokkaa `User` vastaava taulu on nimellä `Account.`
