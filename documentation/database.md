@@ -13,12 +13,16 @@
 	name VARCHAR(30) NOT NULL, 
 	PRIMARY KEY (id)
 );
+
+
 CREATE TABLE colorcode (
 	id INTEGER NOT NULL, 
 	name VARCHAR(30) NOT NULL, 
 	code VARCHAR(30) NOT NULL, 
 	PRIMARY KEY (id)
 );
+
+
 CREATE TABLE account (
 	id INTEGER NOT NULL, 
 	username VARCHAR(30) NOT NULL, 
@@ -27,6 +31,8 @@ CREATE TABLE account (
 	PRIMARY KEY (id), 
 	CHECK (admin IN (0, 1))
 );
+
+
 CREATE TABLE cc_ptype (
 	colorcode_id INTEGER NOT NULL, 
 	ptype_id INTEGER NOT NULL, 
@@ -34,6 +40,8 @@ CREATE TABLE cc_ptype (
 	FOREIGN KEY(colorcode_id) REFERENCES colorcode (id), 
 	FOREIGN KEY(ptype_id) REFERENCES ptype (id)
 );
+
+
 CREATE TABLE item (
 	id INTEGER NOT NULL, 
 	lowink BOOLEAN NOT NULL, 
