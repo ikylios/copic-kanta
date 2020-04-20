@@ -27,7 +27,7 @@ class Item(db.Model):
 
         @staticmethod
         def general_index():
-                stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Account.username"
+                stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Account.username, Item.id"
                         " FROM Item" 
                         " JOIN Account ON Item.account_id = Account.id" 
                         " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
@@ -38,7 +38,7 @@ class Item(db.Model):
                 response = []
                 for row in res:
 #                    print("row:" + str(row))
-                    response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "username":row[3]})
+                    response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "username":row[3], "id":row[4]})
 #                    for x, y in response[0].items():
 #                        print(x, y)
 #                    print("res0:" + str(response[0]))

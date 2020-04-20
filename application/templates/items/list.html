@@ -35,9 +35,11 @@
       <td>{{ dict_item.colorname }}</td>
       <td>{{ dict_item.ptype }}</td>
       <td>{{ dict_item.username }}</td>
-     <td>
-        <input type="submit" value="Delete item (nonfunc)"/>
-     </td>
+      <td>
+       <form method="POST" action="{{ url_for('items_delete', item_id=dict_item.id) }}" >
+          <input type="submit" value="Delete item"/>
+        </form>
+      </td>
     </tr>
     {% endfor %}
    {% endif %}
