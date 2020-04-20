@@ -10,7 +10,7 @@ class Colorcode(db.Model):
         name = db.Column(db.String(30), nullable=False)
         code = db.Column(db.String(30), nullable=False)
 
-        items = db.relationship("Item", backref="colorcode", lazy=True)
+        items = db.relationship("Item", backref="colorcode", lazy=True, cascade="all, delete-orphan")
         ptypes = db.relationship("Cc_ptype", back_populates="colorcode", cascade="all, delete-orphan")
 
         def __init__(self, code, name):
@@ -39,7 +39,7 @@ class Cc_ptype(db.Model):
 
     @staticmethod
     def list_products():
-                stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name"
+                stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Colorcode.id, Ptype.id"
                         " FROM Cc_ptype"
                         " JOIN Colorcode ON Cc_ptype.colorcode_id = Colorcode.id"
                         " JOIN Ptype ON Cc_ptype.ptype_id = Ptype.id"
@@ -48,6 +48,6 @@ class Cc_ptype(db.Model):
 
                 response = []
                 for row in res:
-                    response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2]})
+                    response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "ccid":row[3], "ptypeid":row[4]})
                 return response
 

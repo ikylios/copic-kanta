@@ -40,7 +40,9 @@
       <td>{{ dict_item.colorname }}</td>
       <td>{{ dict_item.ptype }}</td>
      <td>
-        <input type="submit" value="Delete (nonfunc)"/>
+      <form method="POST" action="{{ url_for('cc_ptype_delete', ccid = dict_item.ccid, ptypeid = dict_item.ptypeid) }}" >
+        <input type="submit" value="Delete"/>
+      </form>
      </td>
     </tr>
     {% endfor %}

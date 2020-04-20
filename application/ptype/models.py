@@ -9,7 +9,7 @@ class Ptype(db.Model):
 
     name = db.Column(db.String(30), nullable=False)
 
-    items = db.relationship("Item", backref="ptype", lazy=True)
+    items = db.relationship("Item", backref="ptype", lazy=True, cascade="all, delete-orphan")
     colorcodes = db.relationship("Cc_ptype", back_populates="ptype", cascade="all, delete-orphan")
 
     def __init__(self, name):
