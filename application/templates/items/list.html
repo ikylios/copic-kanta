@@ -19,16 +19,14 @@
 <table class="table table-striped table-sm">
  <thead>
   <tr>
-    {% if general_index is defined %}
+     {% if general_index[0] %}
      {% for key, value in general_index[0].items()  %}
      <th scope="col">{{ key.capitalize() }}</th>
     {% endfor %}
     <th scope="col"></th>
-   {% endif %}
   </tr>
  </thead>
  <tbody>
-   {% if general_index is defined %}
      {% for dict_item in general_index  %}
      <tr>
       {% for key, value in dict_item.items() %}
@@ -41,7 +39,9 @@
       </td>
     </tr>
     {% endfor %}
-   {% endif %}
+    {% else %}
+     <b>No items!</b>
+    {% endif %}
  </tbody>
 </table>
 

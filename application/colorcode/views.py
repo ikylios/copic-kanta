@@ -39,6 +39,16 @@ def cc_ptype_delete(ccid, ptypeid):
         db.session.delete(item)
 
     db.session.delete(cc_ptype)
+
+    ccHasProducts = Cc_ptype.query.filter(Cc_ptype.colorcode_id == ccid).first()
+    if not ccHasProducts:
+        cc = Colorcode.query.get(ccid)
+        db.session.delete(cc)
+
+    productHasColorcode = Cc_ptype.query.filter(Cc_ptype.ptype_id == ptypeid).first()
+    if not productHasColorcode:
+        ptype = Ptype.query.get(ptypeid)
+        db.session.delete(ptype)
     
     db.session().commit()
 
