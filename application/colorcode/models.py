@@ -21,6 +21,18 @@ class Colorcode(db.Model):
         def colorcode_list():
                 return Colorcode.query.order_by(Colorcode.code)
 
+        @staticmethod
+        def cc_iterable():
+                stmt = text("SELECT Colorcode.id, Colorcode.code, Colorcode.name" 
+                        " FROM Colorcode")
+                res = db.engine.execute(stmt)
+
+                response = []
+                for row in res:
+                    response.append({"ccid":row[0], "colorcode":row[1], "colorname":row[2]})
+                return response
+
+
 
 
 class Cc_ptype(db.Model):

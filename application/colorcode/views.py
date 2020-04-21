@@ -15,6 +15,18 @@ from application.ptype.models import Ptype
 def cc_ptype_index():
         return render_template("colorcode/list.html", items = Cc_ptype.list_products())
 
+@app.route("/items/vproducts/cc", methods=["GET"])
+@login_required(role="ADMIN")
+def cc_only():
+        return render_template("colorcode/listiterable.html", items = Colorcode.cc_iterable())
+
+@app.route("/items/vproducts/ptype", methods=["GET"])
+@login_required(role="ADMIN")
+def ptype_only():
+        return render_template("colorcode/listiterable.html", items = Ptype.ptype_iterable())
+
+
+
 @app.route("/items/vproducts/delete/<ccid>/<ptypeid>", methods=["POST"])
 @login_required(role="ADMIN")
 def cc_ptype_delete(ccid, ptypeid):
@@ -31,6 +43,50 @@ def cc_ptype_delete(ccid, ptypeid):
     db.session().commit()
 
     return redirect(url_for("cc_ptype_index"))
+
+@app.route("/items/vproducts/delete/cc/<ccid>", methods=["POST"])
+@login_required(role="ADMIN")
+def cc_delete(ccid):
+    
+    cc_ptypes = Cc_ptype.query.filter(Cc_ptype.colorcode_id == ccid)
+
+    for cc_ptype in cc_ptypes:
+        db.session.delete(cc_ptype)
+    
+    items = Item.query.filter(Item.colorcode_id == ccid)
+
+    for item in items:
+        db.session.delete(item)
+
+    cc = Colorcode.query.get(ccid)
+    db.session.delete(cc)
+    
+    db.session().commit()
+
+    return redirect(url_for("cc_only"))
+
+@app.route("/items/vproducts/delete/ptype/<ptypeid>", methods=["POST"])
+@login_required(role="ADMIN")
+def ptype_delete(ptypeid):
+    
+    cc_ptypes = Cc_ptype.query.filter(Cc_ptype.ptype_id == ptypeid)
+
+    for cc_ptype in cc_ptypes:
+        db.session.delete(cc_ptype)
+    
+    items = Item.query.filter(Item.ptype_id == ptypeid)
+
+    for item in items:
+        db.session.delete(item)
+
+    ptype = Ptype.query.get(ptypeid)
+    db.session.delete(ptype)
+    
+    db.session().commit()
+
+    return redirect(url_for("ptype_only"))
+
+
 
 
 @app.route("/items/vproducts/new", methods=["GET", "POST"])

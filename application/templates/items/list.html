@@ -2,7 +2,6 @@
 
 {% block body %}
 
-{% block query %}
 
 <div class="container p-2">
   <div class="row">
@@ -20,21 +19,21 @@
 <table class="table table-striped table-sm">
  <thead>
   <tr>
-    <th scope="col">Color code</th>
-    <th scope="col">Color Name</th>
-    <th scope="col">Product type</th>
-    <th scope="col">User</th>
+    {% if general_index is defined %}
+     {% for key, value in general_index[0].items()  %}
+     <th scope="col">{{ key.capitalize() }}</th>
+    {% endfor %}
     <th scope="col"></th>
+   {% endif %}
   </tr>
  </thead>
  <tbody>
    {% if general_index is defined %}
-    {% for dict_item in general_index  %}
-    <tr>
-      <td>{{ dict_item.colorcode }}</td>
-      <td>{{ dict_item.colorname }}</td>
-      <td>{{ dict_item.ptype }}</td>
-      <td>{{ dict_item.username }}</td>
+     {% for dict_item in general_index  %}
+     <tr>
+      {% for key, value in dict_item.items() %}
+      <td>{{ value }}</td>
+     {% endfor %}
       <td>
        <form method="POST" action="{{ url_for('items_delete', item_id=dict_item.id) }}" >
           <input type="submit" value="Delete item"/>
@@ -48,4 +47,3 @@
 
 {% endblock %}
 
-{% endblock %}
