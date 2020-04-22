@@ -10,7 +10,17 @@
       <a class="nav-link" href="{{ url_for('items_myindex') }}">Clear filter</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{ url_for('items_myindex') }}">List items with low ink</a>
+      <a class="nav-link" href="{{ url_for('items_lowink') }}">List items with low ink</a>
+    </li>
+    <li class="nav-item">
+     <form method="POST" action="{{ url_for('item_colorsearch') }}">
+      <form class="form-inline">
+       {{ error }}
+       {{ form.search }} 
+       <input type="submit" value="Search"/>
+<!--      <input class="form-check-input" type="checkbox" id="gridCheck1">
+<label class="form-check-label" for="gridCheck1">Inclusive</label> -->
+     </form>
     </li>
     </ul>
   </div> 
@@ -48,4 +58,5 @@
     {% endfor %}
  </tbody>
 </table>
+
 {% endblock %}

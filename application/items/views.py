@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, url_for
 from flask_login import current_user
 
 from application.items.models import Item
-from application.items.forms import ItemForm
+from application.items.forms import ItemForm, SearchForm
 
 from application.colorcode.models import Colorcode
 from application.ptype.models import Ptype
@@ -29,16 +29,16 @@ def items_index():
 @app.route("/items/myitems/", methods=["GET"])
 @login_required(role="USER")
 def items_myindex():
-    return render_template("items/listpersonal.html", items = Item.personal_index(str(current_user.id)))
+    return render_template("items/listpersonal.html", items = Item.personal_index(str(current_user.id)), form = SearchForm())
 
 
 @app.route("/items/myitems/lowink/", methods=["GET"])
 def items_lowink():
-    return render_template("items/listpersonal.html", items = Item.find_lowink(str(current_user.id)))
+    return render_template("items/listpersonal.html", items = Item.find_lowink(str(current_user.id)), form = SearchForm())
 
 @app.route("/items/most/", methods=["GET"])
 def items_count():
-        return render_template("items/list.html", items = Item.query.all())
+    return render_template("items/list.html", items = Item.query.all())
 
 @app.route("/items/myitems/setink/<item_id>/", methods=["POST"])
 @login_required
@@ -66,7 +66,20 @@ def items_delete(item_id):
 
     return redirect(url_for("index"))
 
-@app.route("/items/personal/new", methods=["GET", "POST"])
+@app.route("/items/myitems/search", methods=["POST"])
+@login_required(role="USER")
+def item_colorsearch():
+
+    form = SearchForm(request.form)
+    
+    if not form.validate():
+        return render_template("items/listpersonal.html", form = form, error = "Invalid search")
+   
+    return render_template("items/listpersonal.html", items = Item.colorsearch(str(current_user.id),
+        form.search.data), form = SearchForm())
+
+
+@app.route("/items/myitems/new", methods=["GET", "POST"])
 @login_required
 def item_form():
 

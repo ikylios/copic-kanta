@@ -79,5 +79,22 @@ class Item(db.Model):
                     response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":"Yes", "id":row[4]})
                 return response
 
+        @staticmethod
+        def colorsearch(user_id, searchterm):
+                stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.id"
+                        " FROM Item"
+                        " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
+                        " JOIN Ptype ON Item.ptype_id = Ptype.id"
+                        " WHERE Colorcode.code LIKE UPPER('%" + searchterm + "%')"
+                        " AND Item.account_id = " + user_id +
+                        " ORDER BY Item.id DESC")
+                res = db.engine.execute(stmt)
 
+                response = []
+                for row in res:
+                    lowink_status = "No" 
+                    if row[3]:
+                        lowink_status = "Yes"
+                    response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "id":row[4]})
+                return response
 
