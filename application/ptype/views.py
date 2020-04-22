@@ -26,5 +26,5 @@ def ptype_form():
     db.session().add(ptype)
     db.session().commit()
 
-    return redirect(url_for("items_index"))
+    return redirect(url_for("ptype_only"))
 

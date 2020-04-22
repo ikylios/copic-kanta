@@ -12,6 +12,15 @@ from application.colorcode.models import Cc_ptype
 
 from application.auth.models import User
 
+@app.route("/", methods=["GET"])
+@login_required
+def index():
+    if "ADMIN" in current_user.roles():
+       return redirect(url_for("items_index"))
+
+    return redirect(url_for("items_myindex"))
+
+ 
 @app.route("/items/", methods=["GET"])
 @login_required(role="ADMIN")
 def items_index():
@@ -43,7 +52,7 @@ def items_set_lowink(item_id):
 
     db.session().commit()
 
-    return redirect(url_for("items_myindex"))
+    return redirect(url_for("index"))
 
 
 @app.route("/items/delete/<item_id>/", methods=["POST"])
@@ -55,11 +64,7 @@ def items_delete(item_id):
     db.session.delete(item)
     db.session().commit()
 
-    if "ADMIN" in current_user.roles():
-       return redirect(url_for("items_index"))
-
-    return redirect(url_for("items_myindex"))
-
+    return redirect(url_for("index"))
 
 @app.route("/items/personal/new", methods=["GET", "POST"])
 @login_required
@@ -95,4 +100,4 @@ def item_form():
     db.session.add(item)
     db.session().commit()
 
-    return redirect(url_for("items_myindex"))
+    return redirect(url_for("index"))

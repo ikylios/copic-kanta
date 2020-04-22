@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
 
 {% block body %}
+
 {{ error }}
+
 <div class="container p-2">
  <form method="POST" action="{{ url_for('auth_form') }}">
   <div class="row p-1">

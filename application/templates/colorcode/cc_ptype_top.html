@@ -3,25 +3,19 @@
 {% block body %}
 
 <div class="container p-2">
-  <div class="row">
-    <h3>Valid colorcode and product type combinations</h3>
-  </div>
-  <div class="row">
-    <div class="col-md-4">
-      <form action="{{ url_for('cc_ptype_index') }}">
-        <button type="submit">Clear filter</button>
-      </form>
-    </div>
-    <div class="col-md-4">
-      <form action="{{ url_for('cc_only') }}">
-        <button type="submit">Show cc only</button>
-      </form>
-    </div>
-    <div class="col-md-4">
-      <form action="{{ url_for('ptype_only') }}">
-        <button type="submit">Show ptype only</button>
-      </form>
-    </div>
+  <h3>Valid colorcode and product type combinations</h3>
+  <div class="nav-scroller">
+   <ul class="nav nav-pills nav-justified p-2">
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('cc_ptype_index') }}">Clear filter</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('cc_only') }}">Colorcodes only</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('ptype_only') }}">Product types only</a>
+    </li>
+   </ul>
   </div>
 </div>
 

@@ -4,16 +4,14 @@
 
 
 <div class="container p-2">
-  <div class="row">
-    <h2>Items</h2>	
+  <h2>Items</h2>	
+  <div class="nav-scroller">
+   <ul class="nav nav-pills nav-justified">
+    <li class="nav-item">
+     <a class="nav-link" href="{{ url_for('items_count') }}">Item amount by user (nonfunc)</a>
+    </li>
+   </ul> 
   </div>
-  <div class="row">
-    <div class="col-md-5">
-      <form action="{{ url_for('items_count') }}">
-        <button type="submit">Item amount by user (nonfunc)</button>
-      </form>
-    </div>
-  </div> 
 </div>
 
 <table class="table table-striped table-sm">
@@ -43,7 +41,8 @@
      <b>No items!</b>
     {% endif %}
  </tbody>
-</table>
+
+
 
 {% endblock %}
 

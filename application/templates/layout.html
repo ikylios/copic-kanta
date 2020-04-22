@@ -7,9 +7,9 @@
   </head>
 
   <body>
-
-    <div class="navbar navbar-expand-md navbar-light bg-light mb-4">
-      <a class="navbar-brand" href="#"><h2>Copic-kanta</h2></a>
+   
+     <div class="navbar navbar-expand-md navbar-light bg-light mb-4">
+      <a class="navbar-brand" href="{{ url_for('index')}}"><h2>Copic-kanta</h2></a>
       {% if current_user.is_authenticated %} 
       <span>Logged in as {{ current_user.username }}. </span>
       <a class="nav-link" href="{{ url_for('auth_logout') }}">Log out</a>
@@ -21,42 +21,41 @@
     </div>
 
 
+   <div class="container mb-3">
     {% if current_user.is_authenticated %}
      {% if "USER" in current_user.roles() %}
        <div class="nav-scroller">
          <ul class="nav justify-content-center">
-           <li class="nav-item">
-	     <a class="nav-link" href="{{ url_for('items_myindex') }}">My collection</a>
-	   </li>
-           <li class="nav-item">
-	     <a class="nav-link" href="{{ url_for('item_form') }}">Add an item to my collection</a>
-	   </li>
+	   <a class="nav-link" href="{{ url_for('items_myindex') }}">My collection</a>
+	   <a class="nav-link" href="{{ url_for('item_form') }}">Add an item to my collection</a>
          </ul>
        </div>
        {% else %}
        <div class="nav-scroller">
          <ul class="nav justify-content-center">
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('items_index') }}">List users' items</a>
-  	  </li>
-	  <li class ="nav-item">
-	    <a class="nav-link" href="{{ url_for('cc_ptype_index') }}">View valid products</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('cc_ptype_form') }}">Add a new product</a>
-	  </li> 
-          <li class ="nav-item">
-	    <a class="nav-link" href="{{ url_for('ptype_form') }}">Add a new type</a>
-          </li>
+	  <li class="nav-item">
+           <a class="nav-link" href="{{ url_for('items_index') }}">List users' items</a>
+	  </li>
+	  <li class="nav-item">
+	   <a class="nav-link" href="{{ url_for('cc_ptype_index') }}">View valid products</a>
+	  </li>
+	  <li class="nav-item">
+	   <a class"nav-link dropdown-toggle" data-toggle="dropdown" href="#">Add to database</a>
+	    <div class="dropdown-menu">
+	      <a class="dropdown-item" href="{{ url_for('cc_ptype_form') }}">Item</a>
+	      <a class="dropdown-item" href="#">Colorcode</a>
+	      <a class="dropdown-item" href="{{ url_for('ptype_form') }}">Product type</a>
+	    </div>
+	  </li>
         </ul>
       </div>
       {% endif %}
     {% endif %}
-    
+   </div> 
     
    
    
-   <main role="main" class="container">
+   <main role="main" class="container p-2">
    {% block body %}
    <p>Content</p>
    {% endblock %}
