@@ -2,21 +2,17 @@
 
 {% block body %}
 
-<div class="container p-3">
-  <div class="row">
-    <h2>My Collection</h2>	
-  </div>
-  <div class="row">
-    <div class="col-md-4">
-      <form action="{{ url_for('items_myindex') }}">
-	<button type="submit">Clear filter</button>
-      </form>
-    </div>
-    <div class="col-md-4">
-      <form action="{{ url_for('items_lowink') }}">
-        <button type="submit">List items with low ink</button>
-      </form>
-    </div>
+<div class="container p-2">
+  <h2>My Collection</h2>	
+  <div class="nav-scroller">
+   <ul class="nav nav-pills nav-justified p-2">
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('items_myindex') }}">Clear filter</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('items_myindex') }}">List items with low ink</a>
+    </li>
+    </ul>
   </div> 
 </div>
 
