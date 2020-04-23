@@ -4,34 +4,34 @@ from sqlalchemy.sql import text
 
 class Colorcode(db.Model):
 
-        __tablename__ = "colorcode"
+    __tablename__ = "colorcode"
 
-        id = db.Column(db.Integer, primary_key=True)
-        name = db.Column(db.String(30), nullable=False)
-        code = db.Column(db.String(30), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), nullable=False)
+    code = db.Column(db.String(30), nullable=False)
 
-        items = db.relationship("Item", backref="colorcode", lazy=True, cascade="all, delete-orphan")
-        ptypes = db.relationship("Cc_ptype", back_populates="colorcode", cascade="all, delete-orphan")
+    items = db.relationship("Item", backref="colorcode", lazy=True, cascade="all, delete-orphan")
+    ptypes = db.relationship("Cc_ptype", back_populates="colorcode", cascade="all, delete-orphan")
 
-        def __init__(self, code, name):
-                self.code = code
-                self.name = name
+    def __init__(self, code, name):
+        self.code = code
+        self.name = name
 
-        @staticmethod
-        def colorcode_list():
-                return Colorcode.query.order_by(Colorcode.code)
+    @staticmethod
+    def colorcode_list():
+        return Colorcode.query.order_by(Colorcode.code)
 
-        @staticmethod
-        def cc_iterable():
-                stmt = text("SELECT Colorcode.id, Colorcode.code, Colorcode.name" 
+    @staticmethod
+    def cc_iterable():
+        stmt = text("SELECT Colorcode.id, Colorcode.code, Colorcode.name" 
                         " FROM Colorcode")
-                res = db.engine.execute(stmt)
+        res = db.engine.execute(stmt)
 
-                response = []
-                for row in res:
-                    response.append({"ccid":row[0], "colorcode":row[1], "colorname":row[2]})
-                return response
+        response = []
+        for row in res:
+            response.append({"ccid":row[0], "colorcode":row[1], "colorname":row[2]})
 
+        return response
 
 
 

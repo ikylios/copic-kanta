@@ -23,22 +23,18 @@
 
    <div class="container mb-3">
     {% if current_user.is_authenticated %}
-     {% if "USER" in current_user.roles() %}
-       <div class="nav-scroller">
-         <ul class="nav justify-content-center">
-	   <a class="nav-link" href="{{ url_for('items_myindex') }}">My collection</a>
-	   <a class="nav-link" href="{{ url_for('item_form') }}">Add an item to my collection</a>
-         </ul>
-       </div>
+    <div class="nav-scroller">
+     <ul class="nav justify-content-center">
+      <a class="nav-link" href="{{ url_for('cc_ptype_index') }}">View products</a>
+      {% if "USER" in current_user.roles() %}
+        <a class="nav-link" href="{{ url_for('items_myindex') }}">My collection</a>
+	<a class="nav-link" href="{{ url_for('item_form') }}">Add an item to my collection</a>
        {% else %}
-       <div class="nav-scroller">
-         <ul class="nav justify-content-center" >
-           <a class="nav-link" href="{{ url_for('items_index') }}">View users' items</a>
-	   <a class="nav-link" href="{{ url_for('cc_ptype_index') }}">View products</a>
-	   <a class="nav-link" href="{{ url_for('db_form') }}">Add to database</a>
-        </ul>
-      </div>
+        <a class="nav-link" href="{{ url_for('items_index') }}">View users' items</a>
+	<a class="nav-link" href="{{ url_for('db_form') }}">Add to database</a>
       {% endif %}
+      </ul>
+     </div>
     {% endif %}
    </div> 
     

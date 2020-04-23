@@ -1,6 +1,7 @@
 # Copic-kanta
 
-Copic-huopakynät ovat lajinsa aatelia. Huopakynät tulevat yli 350 eri 
+
+[Copic-huopakynät](https://copic.jp/en/) ovat lajinsa aatelia. Huopakynät tulevat yli 350 eri 
 värissä ja useassa eri mallissa. Lisäksi jokaisella sävyllä on täyttöpullo. Omien tuotteiden hallinnointi käy nopeasti hankalaksi. Copic-kanta auttaa oman kokoelman ylläpidossa. Toimintoina ovat mm. tussien listaaminen, joissa muste on vähissä, tietyn tuotteen hakeminen värin perusteella ja jaottelu tuotetyyppien mukaan.
 
 
@@ -17,5 +18,4 @@ värissä ja useassa eri mallissa. Lisäksi jokaisella sävyllä on täyttöpull
 
 
 [Tietokannasta](https://github.com/ikylios/copic-kanta/blob/master/documentation/database.md)
-
 
