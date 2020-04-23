@@ -39,13 +39,8 @@
 	  <li class="nav-item">
 	   <a class="nav-link" href="{{ url_for('cc_ptype_index') }}">View valid products</a>
 	  </li>
-	  <li class="nav-item" style="line-height: 2.5em">
-	   <a class"nav-link dropdown-toggle" data-toggle="dropdown" href="#">Add to database</a>
-	    <div class="dropdown-menu">
-	      <a class="dropdown-item" href="#">Colorcode</a>
-	      <a class="dropdown-item" href="{{ url_for('ptype_form') }}">Product type</a>
-	      <a class="dropdown-item" href="{{ url_for('cc_ptype_form') }}">Item</a>
-	    </div>
+	  <li class="nav-item">
+	   <a class="nav-link" href="{{ url_for('db_form') }}">Add to database</a>
 	  </li>
         </ul>
       </div>

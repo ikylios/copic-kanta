@@ -11,10 +11,12 @@ def hasWhitespaceOnly(form, field):
         raise ValidationError("Field contains invalid whitespace.")
 
 
-class Cc_ptypeForm(FlaskForm):
-        colorcode = StringField("Product colorcode", [validators.Length(min=1, max=25), validators.InputRequired(), hasWhitespaceOnly])
-        name = StringField("Colorcode name", [validators.Length(min=2, max=25), validators.InputRequired(), hasWhitespaceOnly])
-        ptype = QuerySelectField(u'Product ptype', query_factory = Ptype.ptype_list, get_label='name')
+class CcForm(FlaskForm):
+        code = StringField("Code", [validators.Length(min=1, max=25), validators.InputRequired(), hasWhitespaceOnly])
+        name = StringField("Color name", [validators.Length(min=2, max=25), validators.InputRequired(), hasWhitespaceOnly])
 
         class Meta:
             csrf = False
+
+
+

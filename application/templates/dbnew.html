@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<h2>Add to Database</h2>
+
+<div class="container my-2">
+ <form method="POST" action="{{ url_for('cc_ptype_form') }}">
+ <h4>Item</h4>
+  <table cellpadding:"5">
+    <tr>{{ error }}</tr>
+    <tr>
+     <td> {{ formItem.colorcode.label }} </td>
+     <td> {{ formItem.colorcode }} </td>
+    </tr>
+    <tr>
+     <td> {{ formItem.ptype.label }} </td>
+     <td> {{ formItem.ptype }} </td>
+    </tr>
+    <tr>
+     <td colspan="2">
+       <input type="submit" value="Add a new item"/>
+     </td>
+    </tr>
+   </table>
+ </form>
+</div>
+
+<div class="container my-2">
+ <h4>Colorcode</h4>
+ <form method="POST" action="{{ url_for('cc_form') }}">
+  <table cellpadding="5">
+  <tr>{{ error }}</tr>
+  <tr>
+    <td> {{ formCc.code.label }} </td>
+    <td> {{ formCc.code }} </td>
+  </tr>
+  <tr>
+    <td> {{ formCc.name.label }} </td>
+    <td> {{ formCc.name }} </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+     <input type="submit" value="Submit"/>
+   </td>
+  </tr>
+  </table>
+ </form>
+</div>
+
+<div class="container my-2">
+ <h4>Product type</h4>
+ <form method="POST" action="{{ url_for('ptype_form') }}">
+  <table cellpadding="5">
+  <tr>{{ error }}</tr>
+  <tr>
+    <td> {{ formPtype.name.label }} </td>
+    <td> {{ formPtype.name }} </td>
+  </tr>
+  <tr>
+   <td colspan="2">
+     <input type="submit" value="Submit"/>
+   </td>
+  </tr>
+  </table>
+ </form>
+</div>
+
+
+{% endblock %}

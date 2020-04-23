@@ -3,12 +3,14 @@ from flask import render_template, request, redirect, url_for
 from flask_login import current_user
 
 from application.items.models import Item
+from application.items.forms import ItemForm
 
 from application.colorcode.models import Cc_ptype
 from application.colorcode.models import Colorcode
-from application.colorcode.forms import Cc_ptypeForm
+from application.colorcode.forms import CcForm
 
 from application.ptype.models import Ptype
+from application.ptype.forms import PtypeForm
 
 @app.route("/items/vproducts/", methods=["GET"])
 @login_required(role="ADMIN")
@@ -97,34 +99,54 @@ def ptype_delete(ptypeid):
     return redirect(url_for("ptype_only"))
 
 
+@app.route("/items/addtodb/", methods=["GET"])
+@login_required(role="ADMIN")
+def db_form():
+    return render_template("dbnew.html", formItem = ItemForm(), formCc = CcForm(), formPtype = PtypeForm())
 
 
-@app.route("/items/vproducts/new", methods=["GET", "POST"])
+
+@app.route("/items/vproducts/new", methods=["POST"])
 @login_required(role="ADMIN")
 def cc_ptype_form(): 
    
-    form = Cc_ptypeForm(request.form)
-    
-    if request.method == "GET":
-        return render_template("colorcode/new.html", form = form)
+    form = ItemForm(request.form)
     
     if not form.validate():
-        return render_template("colorcode/new.html", form = form)
+        return render_template("dbnew.html", formItem = form, formCc = CcForm(), formPtype = PtypeForm())
     
-    cc = Colorcode.query.filter(Colorcode.code == form.colorcode.data).first()
-    if not cc:
-        cc = Colorcode(form.colorcode.data, form.name.data)
-        db.session.add(cc)
-
+    cc = Colorcode.query.filter(Colorcode.code == form.colorcode.data.code).first()
     ptype = Ptype.query.filter(Ptype.name == form.ptype.data.name).first()
 
     duplicate = Cc_ptype.query.filter(Cc_ptype.colorcode_id == cc.id, Cc_ptype.ptype_id == ptype.id).first()
     if duplicate:
-        return render_template("colorcode/new.html", form = form, error = "Product already in database.")
+        return render_template("dbnew.html", form = form, error = "Product already in database.")
 
     ccptype = Cc_ptype(cc.id, ptype.id)
     db.session.add(ccptype)
     
     db.session().commit()
     return redirect(url_for("cc_ptype_index"))
+
+
+
+@app.route("/cc/new/", methods=["POST"])
+@login_required(role="ADMIN")
+def cc_form():
+
+    form = CcForm(request.form)
+
+    if not form.validate():
+        return render_template("dbnew.html", formItem = ItemForm(), formCc = form, formPtype = PtypeForm())
+
+    duplicate = Colorcode.query.filter_by(name=form.code.data).first()
+    if duplicate:
+        return render_template("dbnew.html", form = form, error = "Product type already in database.")
+
+    cc = Colorcode(form.code.data, form.name.data)
+
+    db.session().add(cc)
+    db.session().commit()
+
+    return redirect(url_for("cc_only"))
 
