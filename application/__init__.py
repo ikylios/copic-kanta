@@ -54,7 +54,6 @@ from application.auth import models
 from application.auth import views
 
 from application.ptype import models
-from application.ptype import views
 
 from application.colorcode import models
 from application.colorcode import views

@@ -4,11 +4,11 @@
 
 <h2>Add to Database</h2>
 
-<div class="container my-2">
+<div class="container mb-5 mt-4 p-2">
  <form method="POST" action="{{ url_for('cc_ptype_form') }}">
  <h4>Item</h4>
   <table cellpadding:"5">
-    <tr>{{ error }}</tr>
+    <tr>{{ errorItem }}</tr>
     <tr>
      <td> {{ formItem.colorcode.label }} </td>
      <td> {{ formItem.colorcode }} </td>
@@ -19,18 +19,18 @@
     </tr>
     <tr>
      <td colspan="2">
-       <input type="submit" value="Add a new item"/>
+       <input type="submit" value="Add Item"/>
      </td>
     </tr>
    </table>
  </form>
 </div>
 
-<div class="container my-2">
+<div class="container my-5 p-2">
  <h4>Colorcode</h4>
  <form method="POST" action="{{ url_for('cc_form') }}">
   <table cellpadding="5">
-  <tr>{{ error }}</tr>
+  <tr>{{ errorCc }}</tr>
   <tr>
     <td> {{ formCc.code.label }} </td>
     <td> {{ formCc.code }} </td>
@@ -41,25 +41,25 @@
   </tr>
   <tr>
    <td colspan="2">
-     <input type="submit" value="Submit"/>
+     <input type="submit" value="Add Colorcode"/>
    </td>
   </tr>
   </table>
  </form>
 </div>
 
-<div class="container my-2">
+<div class="container mt-5 p-2">
  <h4>Product type</h4>
  <form method="POST" action="{{ url_for('ptype_form') }}">
   <table cellpadding="5">
-  <tr>{{ error }}</tr>
+  <tr>{{ errorPtype }}</tr>
   <tr>
-    <td> {{ formPtype.name.label }} </td>
-    <td> {{ formPtype.name }} </td>
+    <td> {{ formPtype.pname.label }} </td>
+    <td> {{ formPtype.pname }} </td>
   </tr>
   <tr>
    <td colspan="2">
-     <input type="submit" value="Submit"/>
+     <input type="submit" value="Add Product Type"/>
    </td>
   </tr>
   </table>

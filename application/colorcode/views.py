@@ -120,7 +120,7 @@ def cc_ptype_form():
 
     duplicate = Cc_ptype.query.filter(Cc_ptype.colorcode_id == cc.id, Cc_ptype.ptype_id == ptype.id).first()
     if duplicate:
-        return render_template("dbnew.html", form = form, error = "Product already in database.")
+        return render_template("dbnew.html", formItem = ItemForm(), formCc = CcForm(), formPtype = PtypeForm(), errorItem = "Product already in database.")
 
     ccptype = Cc_ptype(cc.id, ptype.id)
     db.session.add(ccptype)
@@ -139,9 +139,9 @@ def cc_form():
     if not form.validate():
         return render_template("dbnew.html", formItem = ItemForm(), formCc = form, formPtype = PtypeForm())
 
-    duplicate = Colorcode.query.filter_by(name=form.code.data).first()
+    duplicate = Colorcode.query.filter(Colorcode.code == form.code.data).first()
     if duplicate:
-        return render_template("dbnew.html", form = form, error = "Product type already in database.")
+        return render_template("dbnew.html", formItem = ItemForm(), formCc = CcForm(), formPtype = PtypeForm(), errorCc = "Colorcode already in database.")
 
     cc = Colorcode(form.code.data, form.name.data)
 
@@ -149,4 +149,25 @@ def cc_form():
     db.session().commit()
 
     return redirect(url_for("cc_only"))
+
+
+@app.route("/ptype/new/", methods=["POST"])
+@login_required(role="ADMIN")
+def ptype_form():
+
+    form = PtypeForm(request.form)
+
+    if not form.validate():
+        return render_template("dbnew.html", formItem = ItemForm(), formCc = CcForm(), formPtype = form)
+
+    duplicate = Ptype.query.filter_by(name=form.pname.data).first()
+    if duplicate:
+        return render_template("dbnew.html", formItem = ItemForm(), formCc = CcForm(), formPtype = PtypeForm(), errorPtype = "Product type already in database.")
+
+    ptype = Ptype(form.name.data)
+
+    db.session().add(ptype)
+    db.session().commit()
+
+    return redirect(url_for("ptype_only"))
 
