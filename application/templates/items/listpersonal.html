@@ -13,11 +13,11 @@
       <a class="nav-link" href="{{ url_for('items_lowink') }}">List items with low ink</a>
     </li>
     <li class="nav-item">
-     <form method="POST" action="{{ url_for('item_colorsearch') }}">
+     <form method="POST" action="{{ url_for('item_codesearch') }}">
       <form class="form-inline">
        {{ error }}
        {{ form.search }} 
-       <input type="submit" value="Search"/>
+       <input type="submit" value="Search for code"  />
 <!--      <input class="form-check-input" type="checkbox" id="gridCheck1">
 <label class="form-check-label" for="gridCheck1">Inclusive</label> -->
      </form>

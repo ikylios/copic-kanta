@@ -80,14 +80,14 @@ class Item(db.Model):
                 return response
 
         @staticmethod
-        def colorsearch(user_id, searchterm):
+        def codesearch(user_id, searchterm):
                 stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.id"
                         " FROM Item"
                         " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
                         " JOIN Ptype ON Item.ptype_id = Ptype.id"
                         " WHERE Colorcode.code LIKE UPPER('%" + searchterm + "%')"
                         " AND Item.account_id = " + user_id +
-                        " ORDER BY Item.id DESC")
+                        " ORDER BY Colorcode.code")
                 res = db.engine.execute(stmt)
 
                 response = []
