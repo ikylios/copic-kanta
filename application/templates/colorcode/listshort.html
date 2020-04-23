@@ -1,33 +1,30 @@
 {% extends "colorcode/cc_ptype_top.html" %}
 
 {% block list %}
-  
+
+
 <table class="table table-striped table-sm">
  <thead>
   <tr>
+    {% if "ccid" in items[0]  %}
     <th scope="col">Color code</th>
     <th scope="col">Color Name</th>
+    {% else %}
     <th scope="col">Product type</th>
-    <th scope="col"></th>
+    {% endif %}
   </tr>
  </thead>
  <tbody>
-   {% if items is defined %}
     {% for dict_item in items %}
     <tr>
+      {% if "ccid" in items[0]  %}
       <td>{{ dict_item.colorcode }}</td>
       <td>{{ dict_item.colorname }}</td>
+      {% else %}
       <td>{{ dict_item.ptype }}</td>
-     <td>
-      {% if "ADMIN" in current_user.roles() %}
-      <form method="POST" action="{{ url_for('cc_ptype_delete', ccid = dict_item.ccid, ptypeid = dict_item.ptypeid) }}" >
-        <input type="submit" value="Delete"/>
-      </form>
-     {% endif %}
-     </td>
+      {% endif %}
     </tr>
     {% endfor %}
-   {% endif %}
  </tbody>
 </table>
 

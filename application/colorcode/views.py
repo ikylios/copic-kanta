@@ -13,20 +13,23 @@ from application.ptype.models import Ptype
 from application.ptype.forms import PtypeForm
 
 @app.route("/items/vproducts/", methods=["GET"])
-@login_required(role="ADMIN")
+@login_required
 def cc_ptype_index():
         return render_template("colorcode/list.html", items = Cc_ptype.list_products())
 
 @app.route("/items/vproducts/cc", methods=["GET"])
-@login_required(role="ADMIN")
+@login_required
 def cc_only():
+    if "ADMIN" in current_user.roles():
         return render_template("colorcode/listiterable.html", items = Colorcode.cc_iterable())
+    return render_template("colorcode/listshort.html", items = Colorcode.cc_iterable())
 
 @app.route("/items/vproducts/ptype", methods=["GET"])
-@login_required(role="ADMIN")
+@login_required
 def ptype_only():
+    if "ADMIN" in current_user.roles():
         return render_template("colorcode/listiterable.html", items = Ptype.ptype_iterable())
-
+    return render_template("colorcode/listshort.html", items = Ptype.ptype_iterable())
 
 
 @app.route("/items/vproducts/delete/<ccid>/<ptypeid>", methods=["POST"])
