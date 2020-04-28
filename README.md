@@ -11,7 +11,7 @@ värissä ja useassa eri mallissa. Lisäksi jokaisella sävyllä on täyttöpull
 [Käyttöohje](https://github.com/ikylios/copic-kanta/blob/master/documentation/manual.md)
 
 
-[User storyt](https://github.com/ikylios/copic-kanta/blob/master/documentation/userstories.md)
+[User storyt, kehityksestä](https://github.com/ikylios/copic-kanta/blob/master/documentation/userstories.md)
 
 
 [Heroku](https://copic-kanta.herokuapp.com/) Testitunnukset: käyttäjä: käyt, test. admin: pablo, picasso
