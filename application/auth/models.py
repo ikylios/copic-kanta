@@ -41,5 +41,18 @@ class User(db.Model):
 
 
     @staticmethod
-    def with_username():
-        stmt = text("SELECT Account.name FROM Account JOIN Item.account_id = Account.id")
+    def by_user():
+            stmt = text("SELECT Account.username, COUNT(Item.id)"
+                  " FROM Account"
+                    " LEFT JOIN Item ON Account.id = Item.account_id"
+                    " GROUP BY Account.id"
+                    " ORDER BY COUNT(Item.id) DESC"
+                    )
+            res = db.engine.execute(stmt)
+
+            response = []
+            for row in res:
+               response.append({"username":row[0], "number owned":row[1]})
+            return response
+
+

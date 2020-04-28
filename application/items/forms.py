@@ -21,7 +21,7 @@ class ItemForm(FlaskForm):
 
 class CodeSearchForm(FlaskForm):
      search = StringField([validators.Length(min=1, max=10), validators.InputRequired(), hasWhitespaceOnly])
-#    incl = BooleanField()
+     incl = BooleanField()
 
      class Meta:
                 csrf = False

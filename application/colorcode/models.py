@@ -49,17 +49,18 @@ class Cc_ptype(db.Model):
         self.colorcode_id = colorcode_id
         self.ptype_id = ptype_id
 
+
     @staticmethod
     def list_products():
-                stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Colorcode.id, Ptype.id"
-                        " FROM Cc_ptype"
-                        " JOIN Colorcode ON Cc_ptype.colorcode_id = Colorcode.id"
-                        " JOIN Ptype ON Cc_ptype.ptype_id = Ptype.id"
-                        " ORDER BY Colorcode.code")
-                res = db.engine.execute(stmt)
+        stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Colorcode.id, Ptype.id"
+                " FROM Cc_ptype"
+                " JOIN Colorcode ON Cc_ptype.colorcode_id = Colorcode.id"
+                " JOIN Ptype ON Cc_ptype.ptype_id = Ptype.id"
+                " ORDER BY Colorcode.code")
+        res = db.engine.execute(stmt)
 
-                response = []
-                for row in res:
-                    response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "ccid":row[3], "ptypeid":row[4]})
-                return response
+        response = []
+        for row in res:
+            response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "ccid":row[3], "ptypeid":row[4]})
+        return response
 

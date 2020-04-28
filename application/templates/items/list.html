@@ -8,7 +8,13 @@
   <div class="nav-scroller">
    <ul class="nav nav-pills nav-justified">
     <li class="nav-item">
-	    <!--- <a class="nav-link" href="{{ url_for('items_count') }}">Item amount by user (nonfunc)</a> --->
+      <a class="nav-link" href="{{ url_for('items_index') }}">Clear filter</a>
+    </li>
+        <li class="nav-item">
+     <a class="nav-link" href="{{ url_for('items_by_user') }}">Item count by user</a>
+    </li>
+    <li class="nav-item">
+     <a class="nav-link" href="{{ url_for('items_most_popular_cc') }}">Most popular colorcodes</a>
     </li>
    </ul> 
   </div>
@@ -21,7 +27,9 @@
      {% for key, value in general_index[0].items()  %}
      <th scope="col">{{ key.capitalize() }}</th>
     {% endfor %}
+    {% if "id" in general_index[0] %}
     <th scope="col"></th>
+    {% endif  %}
   </tr>
  </thead>
  <tbody>
@@ -30,11 +38,13 @@
       {% for key, value in dict_item.items() %}
       <td>{{ value }}</td>
      {% endfor %}
+       {% if "id" in general_index[0] %}
       <td>
        <form method="POST" action="{{ url_for('items_delete', item_id=dict_item.id) }}" >
           <input type="submit" value="Delete item"/>
         </form>
       </td>
+       {% endif  %}
     </tr>
     {% endfor %}
     {% else %}

@@ -12,6 +12,7 @@ from application.colorcode.models import Cc_ptype
 
 from application.auth.models import User
 
+
 @app.route("/", methods=["GET"])
 @login_required
 def index():
@@ -36,9 +37,21 @@ def items_myindex():
 def items_lowink():
     return render_template("items/listpersonal.html", items = Item.find_lowink(str(current_user.id)), form = CodeSearchForm())
 
+
 @app.route("/items/most/", methods=["GET"])
-def items_count():
-    return render_template("items/list.html", items = Item.query.all())
+@login_required(role="ADMIN")
+def items_most_popular():
+    return render_template("items/list.html", general_index = Item.most_popular())
+
+@app.route("/items/most_cc/", methods=["GET"])
+@login_required(role="ADMIN")
+def items_most_popular_cc():
+    return render_template("items/list.html", general_index = Item.most_popular_cc())
+
+@app.route("/items/by_user/", methods=["GET"])
+@login_required(role="ADMIN")
+def items_by_user():
+    return render_template("items/list.html", general_index = User.by_user())
 
 @app.route("/items/myitems/setink/<item_id>/", methods=["POST"])
 @login_required
@@ -66,6 +79,7 @@ def items_delete(item_id):
 
     return redirect(url_for("index"))
 
+
 @app.route("/items/myitems/codesearch", methods=["POST"])
 @login_required(role="USER")
 def item_codesearch():
@@ -75,8 +89,8 @@ def item_codesearch():
     if not form.validate():
         return render_template("items/listpersonal.html", form = form, error = "Invalid code")
    
-    return render_template("items/listpersonal.html", items = Item.codesearch(str(current_user.id),
-        form.search.data), form = CodeSearchForm())
+    return render_template("items/listpersonal.html", items = Item.codesearch(str(current_user.id), form.incl.data, form.search.data), form = CodeSearchForm())
+
 
 
 @app.route("/items/myitems/new", methods=["GET", "POST"])
