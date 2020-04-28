@@ -53,6 +53,12 @@ def items_most_popular_cc():
 def items_by_user():
     return render_template("items/list.html", general_index = User.by_user())
 
+@app.route("/items/myitems/date", methods=["GET"])
+@login_required(role="USER")
+def items_date_added():
+    return render_template("items/listpersonal.html", items = Item.date_added(str(current_user.id)), form = CodeSearchForm())
+
+
 @app.route("/items/myitems/setink/<item_id>/", methods=["POST"])
 @login_required
 def items_set_lowink(item_id):
@@ -90,7 +96,6 @@ def item_codesearch():
         return render_template("items/listpersonal.html", form = form, error = "Invalid code")
    
     return render_template("items/listpersonal.html", items = Item.codesearch(str(current_user.id), form.incl.data, form.search.data), form = CodeSearchForm())
-
 
 
 @app.route("/items/myitems/new", methods=["GET", "POST"])

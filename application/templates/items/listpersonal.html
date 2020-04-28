@@ -13,6 +13,9 @@
       <a class="nav-link" href="{{ url_for('items_lowink') }}">List items with low ink</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('items_date_added') }}">List items by date added</a>
+    </li>
+    <li class="nav-item">
      <form method="POST" action="{{ url_for('item_codesearch') }}">
       <form class="form-inline">
        {{ error }}
@@ -32,6 +35,7 @@
     <th scope="col">Color code</th>
     <th scope="col">Color Name</th>
     <th scope="col">Product type</th>
+    <th scope="col">Date added</th>
     <th scope="col">Low Ink</th>
     <th scope="col"></th>
     <th scope="col"></th>
@@ -43,6 +47,7 @@
       <td>{{ dict_item.colorcode }}</td>
       <td>{{ dict_item.colorname }}</td>
       <td>{{ dict_item.ptype }}</td>
+      <td>{{ dict_item.date_added }}</td>
       <td>{{ dict_item.lowink }}</td>
       <td>
 	<form method="POST" action="{{ url_for('items_set_lowink', item_id=dict_item.id) }}">

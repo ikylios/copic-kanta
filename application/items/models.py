@@ -147,3 +147,23 @@ class Item(db.Model):
             return response
 
 
+        @staticmethod
+        def date_added(user_id):
+            stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.date_created, Item.id"
+                    " FROM Item" 
+                    " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
+                    " JOIN Ptype ON Item.ptype_id = Ptype.id"
+                    " WHERE Item.account_id = " + user_id +
+                    " ORDER BY Item.date_created")
+            res = db.engine.execute(stmt)
+
+            response = []
+            for row in res:
+                lowink_status = "No" 
+                if row[3]:
+                    lowink_status = "Yes"
+                date = "" + row[4]
+                date2 = date[0:10]
+                date = date2[8:10] + date2[4:8] + date2[0:4]
+                response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "date_added":date, "id":row[5]})
+            return response
