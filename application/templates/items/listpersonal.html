@@ -17,11 +17,15 @@
     </li>
     <li class="nav-item">
      <form method="POST" action="{{ url_for('item_codesearch') }}">
-      <form class="form-inline">
+      <div class="d-flex flex-row mb-2">
        {{ error }}
-       {{ form.search }} 
-       {{ form.incl }} <a>Inclusive</a>
-       <input type="submit" value="Search for code">
+       <div class="bd-highlight">{{ form.search }}</div>
+       </div>
+       <div class="d-flex flex-row">
+	<div class="bd-highlight mr-1.5">{{ form.incl }}Inclusive
+        <button type="submit" class="btn btn-primary">Search for code</button>
+       </div>
+      </div>
      </form>
     </li>
     </ul>
@@ -30,6 +34,14 @@
 
 {% if items %}
 <table class="table table-striped table-sm">
+ <p> {{ items|length }} 
+  {% if items|length > 1 %} 
+   items 
+  {% else %} 
+   item 
+  {% endif %}
+  found. 
+ </p>
  <thead>
   <tr>
     <th scope="col">Color code</th>
@@ -51,17 +63,16 @@
       <td>{{ dict_item.lowink }}</td>
       <td>
 	<form method="POST" action="{{ url_for('items_set_lowink', item_id=dict_item.id) }}">
-	  <input type="submit" value="Switch ink status"/>
+	 <button type="submit" class="btn btn-outline-primary">Switch ink status</button>
 	</form>
       </td>
       <td>
        <form method="POST" action="{{ url_for('items_delete', item_id=dict_item.id) }}" >
-          <input type="submit" value="Delete item"/>
-        </form>
+	<button type="submit" class="btn btn-outline-primary">Delete item</button>
+       </form>
       </td>
     </tr>
     {% endfor %}
- 
  </tbody>
 </table>
 {% else %}

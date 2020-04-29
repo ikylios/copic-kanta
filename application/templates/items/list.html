@@ -41,7 +41,7 @@
        {% if "id" in general_index[0] %}
       <td>
        <form method="POST" action="{{ url_for('items_delete', item_id=dict_item.id) }}" >
-          <input type="submit" value="Delete item"/>
+	  <button type="submit" class="btn btn-outline-primary">Delete item</button>     
         </form>
       </td>
        {% endif  %}

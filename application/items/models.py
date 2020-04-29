@@ -25,6 +25,7 @@ class Item(db.Model):
             return self.name
 
 
+
         @staticmethod
         def general_index():
             stmt = text("SELECT Item.id, Colorcode.code, Colorcode.name, Ptype.name, Account.username "
@@ -47,7 +48,7 @@ class Item(db.Model):
     
         @staticmethod
         def personal_index(user_id):
-            stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.id"
+            stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.date_created, Item.id"
                     " FROM Item" 
                     " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
                     " JOIN Ptype ON Item.ptype_id = Ptype.id"
@@ -60,12 +61,15 @@ class Item(db.Model):
                 lowink_status = "No" 
                 if row[3]:
                     lowink_status = "Yes"
-                response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "id":row[4]})
+                date = "" + row[4]
+                date2 = date[0:10]
+                date = date2[8:10] + date2[4:8] + date2[0:4]
+                response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "date_added":date, "id":row[5]})
             return response
 
         @staticmethod
         def find_lowink(user_id):
-            stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.id"
+            stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.date_created, Item.id"
                     " FROM Item" 
                     " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
                     " JOIN Ptype ON Item.ptype_id = Ptype.id"
@@ -76,7 +80,10 @@ class Item(db.Model):
 
             response = []
             for row in res:
-                response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":"Yes", "id":row[4]})
+                date = "" + row[4]
+                date2 = date[0:10]
+                date = date2[8:10] + date2[4:8] + date2[0:4]
+                response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":"Yes", "date_added":date, "id":row[5]})
             return response
 
         @staticmethod
@@ -124,7 +131,7 @@ class Item(db.Model):
                 if (searchterm == "0" or len(searchterm) >= 3):
                     condition = "LIKE '" + searchterm + "'" 
 
-            stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.id"
+            stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.date_created, Item.id"
                     " FROM Item"
                     " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
                     " JOIN Ptype ON Item.ptype_id = Ptype.id"
@@ -142,10 +149,12 @@ class Item(db.Model):
                 lowink_status = "No" 
                 if row[3]:
                     lowink_status = "Yes"
-                response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "id":row[4]})
+                date = "" + row[4]
+                date2 = date[0:10]
+                date = date2[8:10] + date2[4:8] + date2[0:4]
+                response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "date_added":date, "id":row[5]})
                 
             return response
-
 
         @staticmethod
         def date_added(user_id):

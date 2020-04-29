@@ -44,9 +44,9 @@ def items_most_popular():
     return render_template("items/list.html", general_index = Item.most_popular())
 
 @app.route("/items/most_cc/", methods=["GET"])
-@login_required(role="ADMIN")
+@login_required
 def items_most_popular_cc():
-    return render_template("items/list.html", general_index = Item.most_popular_cc())
+    return render_template("colorcode/listdeleteifid.html", items = Item.most_popular_cc())
 
 @app.route("/items/by_user/", methods=["GET"])
 @login_required(role="ADMIN")
