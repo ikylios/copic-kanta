@@ -1,7 +1,16 @@
-Käyttäjänä haluan nähdä listan kaikista Copic-tuotteista, jotta voin suunnitella toivelistaani.
+## Toiminnallisuuksia
+
+* Haluan nähdä listan kaikista Copic-tuotteista, jotta voin suunnitella toivelistaani.
+```
+"SELECT Colorcode.code, Colorcode.name, Ptype.name, Colorcode.id, Ptype.id"
+                " FROM Cc_ptype"
+                " JOIN Colorcode ON Cc_ptype.colorcode_id = Colorcode.id"
+                " JOIN Ptype ON Cc_ptype.ptype_id = Ptype.id"
+                " ORDER BY Colorcode.code"
+```
 
 
-Käyttäjänä haluan listata esineet, joiden muste on alhainen, jotta tiedän mitä minun tulee ostaa lisää.
+* Haluan listata esineet, joiden muste on alhainen, jotta tiedän mitä minun tulee ostaa lisää.
 ```
 "SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.id"
                         " FROM Item"
@@ -13,7 +22,7 @@ Käyttäjänä haluan listata esineet, joiden muste on alhainen, jotta tiedän m
 ```
 
 
-Käyttäjänä haluan pystyä tarkistamaan, omistanko jonkin tietyn värikoodin esineitä, etten osta vahingossa duplikaatteja.
+* Haluan pystyä tarkistamaan, omistanko jonkin tietyn värikoodin esineitä, etten osta vahingossa duplikaatteja.
 ```
 SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.id"
                         " FROM Item"
@@ -24,12 +33,14 @@ SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.id"
                         " ORDER BY Colorcode.code"
 ```
 
-Käyttäjänä haluan merkitä lempisävyni, jotta voin ottaa nämä kynät heti esille.
+* Haluan merkitä lempisävyni, jotta voin ottaa nämä kynät heti esille.
 
 
-
-Käyttäjänä haluan merkitä varjostussävyt, jotta en harhaudu käyttämään vääriä värejä paperille."
-
-
-
+* Haluan nähdä suosituimmat värikoodit, jotta voin inspiroitua muiden käyttäjien vaikutuksesta.
+```
+"SELECT Colorcode.code, Colorcode.name, COUNT(Colorcode.id)"
+                    " FROM Item"
+                    " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
+                    " GROUP BY Colorcode.id"
+```
 

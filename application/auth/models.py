@@ -45,6 +45,7 @@ class User(db.Model):
             stmt = text("SELECT Account.username, COUNT(Item.id)"
                   " FROM Account"
                     " LEFT JOIN Item ON Account.id = Item.account_id"
+                    " WHERE Account.admin = '0'"
                     " GROUP BY Account.id"
                     " ORDER BY COUNT(Item.id) DESC"
                     )

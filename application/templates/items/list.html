@@ -13,14 +13,11 @@
         <li class="nav-item">
      <a class="nav-link" href="{{ url_for('items_by_user') }}">Item count by user</a>
     </li>
-    <li class="nav-item">
-     <a class="nav-link" href="{{ url_for('items_most_popular_cc') }}">Most popular colorcodes</a>
-    </li>
    </ul> 
   </div>
 </div>
 
-<table class="table table-striped table-sm">
+<table id="table" class="table table-striped table-sm">
  <thead>
   <tr>
      {% if general_index[0] %}
@@ -52,6 +49,7 @@
     {% endif %}
  </tbody>
 </table>
+
 
 
 {% endblock %}

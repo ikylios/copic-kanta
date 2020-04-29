@@ -4,6 +4,7 @@ from flask_login import current_user
 
 from application.items.models import Item
 from application.items.forms import ItemForm
+from application.items.forms import CodeSearchForm
 
 from application.colorcode.models import Cc_ptype
 from application.colorcode.models import Colorcode
@@ -15,21 +16,21 @@ from application.ptype.forms import PtypeForm
 @app.route("/items/vproducts/", methods=["GET"])
 @login_required
 def cc_ptype_index():
-        return render_template("colorcode/list.html", items = Cc_ptype.list_products())
+        return render_template("colorcode/list.html", items = Cc_ptype.list_products(), form = CodeSearchForm())
 
 @app.route("/items/vproducts/cc", methods=["GET"])
 @login_required
 def cc_only():
     if "ADMIN" in current_user.roles():
-        return render_template("colorcode/listwdelete.html", items = Colorcode.cc_iterable())
-    return render_template("colorcode/listccptype.html", items = Colorcode.cc_iterable())
+        return render_template("colorcode/listwdelete.html", items = Colorcode.cc_iterable(), form = CodeSearchForm())
+    return render_template("colorcode/listccptype.html", items = Colorcode.cc_iterable(), form = CodeSearchForm())
 
 @app.route("/items/vproducts/ptype", methods=["GET"])
 @login_required
 def ptype_only():
     if "ADMIN" in current_user.roles():
-        return render_template("colorcode/listwdelete.html", items = Ptype.ptype_iterable())
-    return render_template("colorcode/listccptype.html", items = Ptype.ptype_iterable())
+        return render_template("colorcode/listwdelete.html", items = Ptype.ptype_iterable(), form = CodeSearchForm())
+    return render_template("colorcode/listccptype.html", items = Ptype.ptype_iterable(), form = CodeSearchForm())
 
 
 @app.route("/items/vproducts/delete/<ccid>/<ptypeid>", methods=["POST"])
@@ -102,14 +103,26 @@ def ptype_delete(ptypeid):
     return redirect(url_for("ptype_only"))
 
 
-@app.route("/items/addtodb/", methods=["GET"])
+@app.route("/vproducts/codesearch", methods=["POST"])
+@login_required
+def cc_codesearch():
+
+    form = CodeSearchForm(request.form)
+
+    if not form.validate():
+        return render_template("colorcode/listwdelete.html", form = form, error = "Invalid code")
+
+    return render_template("colorcode/listwdelete.html", items = Cc_ptype.codesearch_cc(form.incl.data, form.search.data), form = CodeSearchForm())
+
+
+@app.route("/addtodb", methods=["GET"])
 @login_required(role="ADMIN")
 def db_form():
     return render_template("dbnew.html", formItem = ItemForm(), formCc = CcForm(), formPtype = PtypeForm())
 
 
 
-@app.route("/items/vproducts/new", methods=["POST"])
+@app.route("/product/new", methods=["POST"])
 @login_required(role="ADMIN")
 def cc_ptype_form(): 
    

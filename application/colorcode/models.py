@@ -33,6 +33,20 @@ class Colorcode(db.Model):
 
         return response
 
+    @staticmethod
+    def most_popular_cc():
+        stmt = text("SELECT Colorcode.code, Colorcode.name, COUNT(Item.id)"
+                " FROM Colorcode"
+                " LEFT JOIN Item ON Item.colorcode_id = Colorcode.id"
+                " GROUP BY Colorcode.id"
+                " ORDER BY COUNT(Item.id) DESC"
+                )
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"colorcode":row[0], "colorname":row[1], "number owned":row[2]})
+        
+        return response
 
 
 class Cc_ptype(db.Model):
@@ -64,3 +78,32 @@ class Cc_ptype(db.Model):
             response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "ccid":row[3], "ptypeid":row[4]})
         return response
 
+
+    @staticmethod
+    def codesearch_cc(incl, searchterm):
+        searchterm = searchterm.upper()
+        if (searchterm == "W" or searchterm == "C"):
+            searchterm += "-"
+
+        condition = ""
+        if incl:
+            condition += "LIKE '%" + searchterm + "%'"
+        else:
+            condition += "GLOB '" + searchterm + "[0-9]*'"
+            if (searchterm == "0" or len(searchterm) >= 3):
+                condition = "LIKE '" + searchterm + "'"
+
+        stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name"
+                " FROM Cc_ptype"
+                " JOIN Colorcode ON Cc_ptype.colorcode_id = Colorcode.id"
+                " JOIN Ptype ON Cc_ptype.ptype_id = Ptype.id"
+                " AND Colorcode.code " + condition +
+                " ORDER BY Colorcode.code")
+        res = db.engine.execute(stmt)
+
+
+        response = []
+        for row in res:
+            response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2]})
+
+        return response

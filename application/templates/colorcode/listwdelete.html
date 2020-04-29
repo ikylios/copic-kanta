@@ -18,23 +18,21 @@
       {% for key, value in dict_item.items() %}
         <td>{{ value }}</td>
       {% endfor %}
-      {% "ADMIN" in current_user.roles()  %}
        <td>
- 	 {% if "ccid" in items[0] %}
-          <form method="POST" action="{{ url_for('cc_delete', ccid=dict_item.ccid) }}">
-	   <button type="submit" class="btn btn-outline-primary">Delete</button>
+ 	{% if "ccid" in items[0] and "ptypeid" not in items[0] %}
+         <form method="POST" action="{{ url_for('cc_delete', ccid=dict_item.ccid) }}">
+	  <button type="submit" class="btn btn-outline-primary">Delete</button>
+	</form>
+	{% elif "ptypeid" in items[0] %}
+	 <form method="POST" action="{{ url_for('ptype_delete', ptypeid=dict_item.ptypeid) }}">
+ 	  <button type="submit" class="btn btn-outline-primary">Delete</button>
 	 </form>
-	 {% elif "ptypeid" in items[0] %}
-	  <form method="POST" action="{{ url_for('ptype_delete', ptypeid=dict_item.ptypeid) }}">
- 	   <button type="submit" class="btn btn-outline-primary">Delete</button>
-	 </form>
-	 {% elif "id" in items[0] %}
-	  <form method="POST" action="{{ url_for('items_delete', item_id=dict_item.id) }}">
-	   <button type="submit" class="btn btn-outline-primary">Delete</button>
-	 </form>
-	 {% endif %}
+	{% elif "id" in items[0] %}
+	 <form method="POST" action="{{ url_for('items_delete', item_id=dict_item.id) }}">
+	  <button type="submit" class="btn btn-outline-primary">Delete</button>
+	</form>
+        {% endif %}
       </td>
-     {% endif %}
     </tr>
     {% endfor %}
     {% else %}

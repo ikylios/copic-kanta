@@ -53,7 +53,7 @@ class Item(db.Model):
                     " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
                     " JOIN Ptype ON Item.ptype_id = Ptype.id"
                     " WHERE Item.account_id = " + user_id +
-                    " ORDER BY Colorcode.code")
+                    " ORDER BY Item.date_created")
             res = db.engine.execute(stmt)
 
             response = []
@@ -86,36 +86,6 @@ class Item(db.Model):
                 response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":"Yes", "date_added":date, "id":row[5]})
             return response
 
-        @staticmethod
-        def most_popular_cc():
-            stmt = text("SELECT Colorcode.code, Colorcode.name, COUNT(Colorcode.id)"
-                    " FROM Item"
-                    " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
-                    " GROUP BY Colorcode.id"
-                    )
-            res = db.engine.execute(stmt)
-
-            response = []
-            for row in res:
-                response.append({"colorcode":row[0], "colorname":row[1], "number owned":row[2]})
-            return response
-    
-        @staticmethod
-        def most_popular():
-            stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, COUNT(Colorcode.id) AS ccfreq, COUNT(Ptype.id) AS ptypefreq"
-                    " FROM Item"
-                    " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
-                    " JOIN Ptype ON Item.ptype_id = Ptype.id"
-                    " GROUP BY Item.colorcode_id"
-                    " ORDER BY ccfreq, ptypefreq"
-                    )
-            res = db.engine.execute(stmt)
-
-            response = []
-            for row in res:
-                response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "nr of cc":row[3], "nr of ptype":row[4]})
-            return response
-
 
         @staticmethod
         def codesearch(user_id, incl, searchterm):
@@ -138,14 +108,11 @@ class Item(db.Model):
                     " WHERE Item.account_id = " + user_id +
                     " AND Colorcode.code " + condition +
                     " ORDER BY Colorcode.code")
-            print("-------stmt:" + str(stmt))
             res = db.engine.execute(stmt)
 
-            print(str(res)) 
 
             response = []
             for row in res:
-                print("-----row:" + str(row))
                 lowink_status = "No" 
                 if row[3]:
                     lowink_status = "Yes"
@@ -155,6 +122,7 @@ class Item(db.Model):
                 response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "date_added":date, "id":row[5]})
                 
             return response
+
 
         @staticmethod
         def date_added(user_id):

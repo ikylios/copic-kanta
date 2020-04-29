@@ -46,7 +46,7 @@ def items_most_popular():
 @app.route("/items/most_cc/", methods=["GET"])
 @login_required
 def items_most_popular_cc():
-    return render_template("colorcode/listdeleteifid.html", items = Item.most_popular_cc())
+    return render_template("colorcode/listdeleteifid.html", items = Colorcode.most_popular_cc())
 
 @app.route("/items/by_user/", methods=["GET"])
 @login_required(role="ADMIN")
@@ -77,11 +77,12 @@ def items_set_lowink(item_id):
 @app.route("/items/delete/<item_id>/", methods=["POST"])
 @login_required
 def items_delete(item_id):
-
-    item = Item.query.get(item_id)
-
-    db.session.delete(item)
-    db.session().commit()
+    
+    owned = Item.query.filter(Item.id == item_id, Item.account_id == current_user.id).first()
+    if owned:
+        item = Item.query.get(item_id)
+        db.session.delete(item)
+        db.session().commit()
 
     return redirect(url_for("index"))
 
