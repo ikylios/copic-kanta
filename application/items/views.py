@@ -37,6 +37,10 @@ def items_myindex():
 def items_lowink():
     return render_template("items/listpersonal.html", items = Item.find_lowink(str(current_user.id)), form = CodeSearchForm())
 
+@app.route("/items/myitems/favorite/", methods=["GET"])
+def items_favorite():
+    return render_template("items/listpersonal.html", items = Item.find_favorite(str(current_user.id)), form = CodeSearchForm())
+
 
 @app.route("/items/most/", methods=["GET"])
 @login_required(role="ADMIN")
@@ -68,6 +72,21 @@ def items_set_lowink(item_id):
         item.lowink = False
     else:
         item.lowink = True
+
+    db.session().commit()
+
+    return redirect(url_for("index"))
+
+
+@app.route("/items/myitems/setfav/<item_id>/", methods=["POST"])
+@login_required
+def items_set_favorite(item_id):
+
+    item = Item.query.get(item_id)
+    if item.favorite == True:
+        item.favorite = False
+    else:
+        item.favorite = True
 
     db.session().commit()
 

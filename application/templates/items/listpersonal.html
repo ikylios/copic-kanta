@@ -16,13 +16,16 @@
       <a class="nav-link" href="{{ url_for('items_date_added') }}">List items by date added</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="{{ url_for('items_favorite') }}">List favorites</a>
+    </li>
+    <li class="nav-item">
      <form method="POST" action="{{ url_for('item_codesearch') }}">
       <div class="d-flex flex-row mb-2">
        {{ error }}
        <div class="bd-highlight">{{ form.search }}</div>
        </div>
        <div class="d-flex flex-row">
-	<div class="bd-highlight mr-1.5">{{ form.incl }}Inclusive
+	<div class="bd-highlight mr-1.5">{{ form.incl }} Inclusive
         <button type="submit" class="btn btn-primary">Search for code</button>
        </div>
       </div>
@@ -47,8 +50,10 @@
     <th scope="col">Color code</th>
     <th scope="col">Color Name</th>
     <th scope="col">Product type</th>
-    <th scope="col">Date added</th>
     <th scope="col">Low Ink</th>
+    <th scope="col">Favorite</th>
+    <th scope="col">Date added</th>
+    <th scope="col"></th>
     <th scope="col"></th>
     <th scope="col"></th>
   </tr>
@@ -59,11 +64,17 @@
       <td>{{ dict_item.colorcode }}</td>
       <td>{{ dict_item.colorname }}</td>
       <td>{{ dict_item.ptype }}</td>
-      <td>{{ dict_item.date_added }}</td>
       <td>{{ dict_item.lowink }}</td>
+      <td>{{ dict_item.fav }}</td>
+      <td>{{ dict_item.date_added }}</td>
       <td>
 	<form method="POST" action="{{ url_for('items_set_lowink', item_id=dict_item.id) }}">
 	 <button type="submit" class="btn btn-outline-primary">Switch ink status</button>
+	</form>
+      </td>
+      <td>
+	<form method="POST" action="{{ url_for('items_set_favorite', item_id=dict_item.id) }}">
+	 <button type="submit" class="btn btn-outline-primary">Switch favorite status</button>
 	</form>
       </td>
       <td>
