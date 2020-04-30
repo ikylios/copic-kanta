@@ -25,13 +25,11 @@ Tällä hetkellä haku näkyy Colorcodes only- ja Product types only -näkymiss�
 Uusi käyttäjä luodaan sovelluksen yläpalkissa olevasta Sign up -napin takaa löytyvästä näkymästä. Rekisteröitymisen onnistuessa käyttäjä kirjataan automaattisesti sisään.
 
 ### Oman kokoelman tarkastelu
-Käyttäjän kokoelma näkyy My collection -näkymässä. Painamalla List items with low ink -nappia kokoelmasta suodattuu tuotteet, joihin käyttäjä on merkinnyt musteen olevan alhainen. Tuotteen mustestatus voidaan vaihtaa painamalla tuotetta vastaavan rivin oikeassa reunassa olevaa Low ink -nappia. List items by date added listaa tuotteet lisäysjärjestyksessä, vanhin ensin. Tätä seuraavana on värikoodihaku, josta lisää myöhemmin tässä dokumentissa. Clear filters -nappia painamalla hakusuodattimet katoavat, ja tavarat listataan oletusasetuksilla (aakkosjärjestys värikoodin mukaan).
+Käyttäjän kokoelma näkyy My collection -näkymässä. Painamalla List items with low ink -nappia kokoelmasta suodattuu tuotteet, joihin käyttäjä on merkinnyt musteen olevan alhainen. Tuotteen mustestatus voidaan vaihtaa painamalla tuotetta vastaavan rivin oikeassa reunassa olevaa Low ink -nappia. List items by date added listaa tuotteet lisäysjärjestyksessä, uusin ensin. Tätä seuraavana on värikoodihaku, josta lisää myöhemmin tässä dokumentissa. Clear filters -nappia painamalla hakusuodattimet katoavat, ja tavarat listataan oletusasetuksilla (aakkosjärjestys värikoodin mukaan).
 
 ### Tuotteen lisääminen ja poistaminen omasta kokoelmasta
 Käyttäjät voivat lisätä tietokannassa olevia tuotteita Add an item to my collection -näkymässä. Dropdown-valikoissa on näkyvillä kaikki tietokantaan valmiiksi kirjatut värikoodit sekä tuotetyypit. Käyttäjä valitsee oikean yhdistelmän, ja painaa lopuksi Add a new Item-nappia. Jos valittu yhdistelmä, eli tuote, on olemassa, niin uusi tuote lisätään käyttäjän nimiin, ja näkyy käyttäjän listassa. Ohjelma ei salli duplikaatteja. Tuote poistetaan painamalla tuotetta vastaavan rivin Delete item -nappia My collection-näkymässä.
 
-
-### Käyttäjän ja adminin toiminnallisuudet
 
 ## Admin-oikeudella varustetut käyttäjät
 Admineilla vasta hauskaa onkin. Adminit voivat lisätä tuotteita tietokantaan, joita käyttäjät voivat lisätä omiin kokoelmiinsa. Lisäksi adminit voivat lisätä uusia tuotetyyppejä. List users' items -näkymässä adminit näkevät kaikkien käyttäjien tavarat.

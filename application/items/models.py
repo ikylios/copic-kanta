@@ -29,7 +29,16 @@ class Item(db.Model):
         def get_name(self):
             return self.name
 
+        def format_date(self, date):
+            date = "" + str(date)
+            date2 = date[0:10]
+            date = date2[8:10] + date2[4:8] + date2[0:4]
+            return date
 
+        def format_boolean(self, boole):
+            if boole:
+                return "Yes"
+            return "No"
 
         @staticmethod
         def general_index():
@@ -47,7 +56,7 @@ class Item(db.Model):
             return response
     
         @staticmethod
-        def personal_index(user_id):
+        def personal_index(self, user_id):
             stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.favorite, Item.date_created, Item.id"
                     " FROM Item" 
                     " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
@@ -58,20 +67,14 @@ class Item(db.Model):
 
             response = []
             for row in res:
-                lowink_status = "No" 
-                if row[3]:
-                    lowink_status = "Yes"
-                fav_status = "No"
-                if row[4]:
-                    fav_status = "Yes"
-                date = "" + str(row[5])
-                date2 = date[0:10]
-                date = date2[8:10] + date2[4:8] + date2[0:4]
+                lowink_status = self.format_boolean(Item, row[3]) 
+                fav_status = self.format_boolean(Item, row[4])
+                date = self.format_date(Item, row[5])
                 response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "fav":fav_status, "date_added":date, "id":row[6]})
             return response
 
         @staticmethod
-        def find_lowink(user_id):
+        def find_lowink(self, user_id):
             stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.favorite, Item.date_created, Item.id"
                     " FROM Item" 
                     " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
@@ -83,17 +86,14 @@ class Item(db.Model):
 
             response = []
             for row in res:
-                fav_status = "No"
-                if row[4]:
-                    fav_status = "Yes"
-                date = "" + str(row[5])
-                date2 = date[0:10]
-                date = date2[8:10] + date2[4:8] + date2[0:4]
-                response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":"Yes", "favorite":fav_status, "date_added":date, "id":row[6]})
+                lowink_status = self.format_boolean(Item, row[3]) 
+                fav_status = self.format_boolean(Item, row[4])
+                date = self.format_date(Item, row[5])
+                response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "favorite":fav_status, "date_added":date, "id":row[6]})
             return response
 
         @staticmethod
-        def find_favorite(user_id):
+        def find_favorite(self, user_id):
             stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.favorite, Item.date_created, Item.id"
                     " FROM Item" 
                     " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
@@ -105,12 +105,9 @@ class Item(db.Model):
 
             response = []
             for row in res:
-                lowink_status = "No"
-                if row[3]:
-                    lowink_status = "Yes"
-                date = "" + str(row[5])
-                date2 = date[0:10]
-                date = date2[8:10] + date2[4:8] + date2[0:4]
+                lowink_status = self.format_boolean(Item, row[3]) 
+                fav_status = self.format_boolean(Item, row[4])
+                date = self.format_date(Item, row[5])
                 response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status,"fav":"Yes", "date_added":date, "id":row[6]})
             return response
 
@@ -141,40 +138,28 @@ class Item(db.Model):
 
             response = []
             for row in res:
-                lowink_status = "No" 
-                if row[3]:
-                    lowink_status = "Yes"
-                fav_status = "No"
-                if row[4]:
-                    fav_status = "Yes"
-                date = "" + str(row[5])
-                date2 = date[0:10]
-                date = date2[8:10] + date2[4:8] + date2[0:4]
+                lowink_status = self.format_boolean(Item, row[3])
+                fav_status = self.format_boolean(Item, row[4])
+                date = self.format_date(Item, row[5])
                 response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "fav":fav_status, "date_added":date, "id":row[6]})
                 
             return response
 
 
         @staticmethod
-        def date_added(user_id):
+        def date_added(self, user_id):
             stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.favorite, Item.date_created, Item.id"
                     " FROM Item" 
                     " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
                     " JOIN Ptype ON Item.ptype_id = Ptype.id"
                     " WHERE Item.account_id = " + user_id +
-                    " ORDER BY Item.date_created")
+                    " ORDER BY Item.date_created DESC")
             res = db.engine.execute(stmt)
 
             response = []
             for row in res:
-                lowink_status = "No" 
-                if row[3]:
-                    lowink_status = "Yes"
-                fav_status = "No"
-                if row[4]:
-                    fav_status = "Yes"
-                date = "" + str(row[5])
-                date2 = date[0:10]
-                date = date2[8:10] + date2[4:8] + date2[0:4]
+                lowink_status = self.format_boolean(Item, row[3])
+                fav_status = self.format_boolean(Item, row[4])
+                date = self.format_date(Item, row[5])
                 response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "fav":fav_status, "date_added":date, "id":row[6]})
             return response

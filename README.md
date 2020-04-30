@@ -17,7 +17,7 @@ Copic-kannan ensisijaisena tavoitteena on tarjota tehokas tuotteiden haku ja jao
 [Käyttöohje, toiminnallisuuksista](https://github.com/ikylios/copic-kanta/blob/master/documentation/manual.md)
 
 
-[User storyt](https://github.com/ikylios/copic-kanta/blob/master/documentation/userstories.md)
+[User storyt ja SQL](https://github.com/ikylios/copic-kanta/blob/master/documentation/userstories.md)
 
 
 [Tietokannasta](https://github.com/ikylios/copic-kanta/blob/master/documentation/database.md)

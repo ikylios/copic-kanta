@@ -27,30 +27,29 @@ def index():
 def items_index():
         return render_template("items/list.html", general_index = Item.general_index())
 
-@app.route("/myitems/", methods=["GET"])
-@login_required(role="USER")
-def items_myindex():
-    return render_template("items/listpersonal.html", items = Item.personal_index(str(current_user.id)), form = CodeSearchForm())
-
-
-@app.route("/myitems/lowink/", methods=["GET"])
-def items_lowink():
-    return render_template("items/listpersonal.html", items = Item.find_lowink(str(current_user.id)), form = CodeSearchForm())
-
-@app.route("/myitems/favorite/", methods=["GET"])
-def items_favorite():
-    return render_template("items/listpersonal.html", items = Item.find_favorite(str(current_user.id)), form = CodeSearchForm())
-
-
 @app.route("/items/by_user/", methods=["GET"])
 @login_required(role="ADMIN")
 def items_by_user():
     return render_template("items/list.html", general_index = User.by_user())
 
+
+@app.route("/myitems/", methods=["GET"])
+@login_required(role="USER")
+def items_myindex():
+    return render_template("items/listpersonal.html", items = Item.personal_index(Item, str(current_user.id)), form = CodeSearchForm())
+
+@app.route("/myitems/lowink/", methods=["GET"])
+def items_lowink():
+    return render_template("items/listpersonal.html", items = Item.find_lowink(Item, str(current_user.id)), form = CodeSearchForm())
+
+@app.route("/myitems/favorite/", methods=["GET"])
+def items_favorite():
+    return render_template("items/listpersonal.html", items = Item.find_favorite(Item, str(current_user.id)), form = CodeSearchForm())
+
 @app.route("/myitems/date", methods=["GET"])
 @login_required(role="USER")
 def items_date_added():
-    return render_template("items/listpersonal.html", items = Item.date_added(str(current_user.id)), form = CodeSearchForm())
+    return render_template("items/listpersonal.html", items = Item.date_added(Item, str(current_user.id)), form = CodeSearchForm())
 
 
 @app.route("/myitems/setink/<item_id>/", methods=["POST"])
