@@ -89,7 +89,7 @@ class Item(db.Model):
                 lowink_status = self.format_boolean(Item, row[3]) 
                 fav_status = self.format_boolean(Item, row[4])
                 date = self.format_date(Item, row[5])
-                response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "favorite":fav_status, "date_added":date, "id":row[6]})
+                response.append({"colorcode":row[0], "colorname":row[1], "ptype":row[2], "lowink":lowink_status, "fav":fav_status, "date_added":date, "id":row[6]})
             return response
 
         @staticmethod

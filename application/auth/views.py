@@ -39,6 +39,10 @@ def auth_form():
 
     form = LoginForm(request.form)
     
+    if not form.validate():
+       return render_template("auth/new.html", form = form, error = "Username and/or password contain whitespace.")
+
+    
     user = User.query.filter_by(username=form.username.data).first()
     if user: 
         return render_template("auth/loginform.html", form = form, error = "Username is taken.")
