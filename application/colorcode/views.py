@@ -13,27 +13,31 @@ from application.colorcode.forms import CcForm
 from application.ptype.models import Ptype
 from application.ptype.forms import PtypeForm
 
-@app.route("/items/vproducts/", methods=["GET"])
-@login_required
+@app.route("/products/", methods=["GET"])
 def cc_ptype_index():
         return render_template("colorcode/list.html", items = Cc_ptype.list_products(), form = CodeSearchForm())
 
-@app.route("/items/vproducts/cc", methods=["GET"])
-@login_required
+@app.route("/products/cc", methods=["GET"])
 def cc_only():
-    if "ADMIN" in current_user.roles():
-        return render_template("colorcode/listwdelete.html", items = Colorcode.cc_iterable(), form = CodeSearchForm())
+    if not current_user.is_anonymous:
+        if "ADMIN" in current_user.roles():
+            return render_template("colorcode/listwdelete.html", items = Colorcode.cc_iterable(), form = CodeSearchForm())
     return render_template("colorcode/listccptype.html", items = Colorcode.cc_iterable(), form = CodeSearchForm())
 
-@app.route("/items/vproducts/ptype", methods=["GET"])
-@login_required
+
+@app.route("/products/ptype", methods=["GET"])
 def ptype_only():
-    if "ADMIN" in current_user.roles():
-        return render_template("colorcode/listwdelete.html", items = Ptype.ptype_iterable(), form = CodeSearchForm())
+    if not current_user.is_anonymous:
+        if "ADMIN" in current_user.roles():
+            return render_template("colorcode/listwdelete.html", items = Ptype.ptype_iterable(), form = CodeSearchForm())
     return render_template("colorcode/listccptype.html", items = Ptype.ptype_iterable(), form = CodeSearchForm())
 
+@app.route("/products/most_cc/", methods=["GET"])
+def most_popular_cc():
+    return render_template("colorcode/listwdelete.html", items = Colorcode.most_popular_cc(), form = CodeSearchForm())
 
-@app.route("/items/vproducts/delete/<ccid>/<ptypeid>", methods=["POST"])
+
+@app.route("/products/delete/<ccid>/<ptypeid>", methods=["POST"])
 @login_required(role="ADMIN")
 def cc_ptype_delete(ccid, ptypeid):
     
@@ -60,7 +64,7 @@ def cc_ptype_delete(ccid, ptypeid):
 
     return redirect(url_for("cc_ptype_index"))
 
-@app.route("/items/vproducts/delete/cc/<ccid>", methods=["POST"])
+@app.route("/products/delete/cc/<ccid>", methods=["POST"])
 @login_required(role="ADMIN")
 def cc_delete(ccid):
     
@@ -81,7 +85,7 @@ def cc_delete(ccid):
 
     return redirect(url_for("cc_only"))
 
-@app.route("/items/vproducts/delete/ptype/<ptypeid>", methods=["POST"])
+@app.route("/products/delete/ptype/<ptypeid>", methods=["POST"])
 @login_required(role="ADMIN")
 def ptype_delete(ptypeid):
     
@@ -103,8 +107,7 @@ def ptype_delete(ptypeid):
     return redirect(url_for("ptype_only"))
 
 
-@app.route("/vproducts/codesearch", methods=["POST"])
-@login_required
+@app.route("/products/codesearch", methods=["POST"])
 def cc_codesearch():
 
     form = CodeSearchForm(request.form)
