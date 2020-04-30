@@ -60,3 +60,4 @@ Tietokanta ei salli käyttäjän omistaa enempää kuin yhden kappaleen tiettyä
 * Varjostussävyjen merkitseminen
 * Toivelista
 * Etusivu, jolla näkyvät uudet tietokantaan lisätyt tuotteet
+* Listauksien suodatinnappien muokkaaminen siten, että aktiivisen suodattimen nappi on "active"

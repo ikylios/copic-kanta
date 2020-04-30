@@ -2,32 +2,34 @@
 
 {% block list %}
   
-<table class="table table-striped table-sm">
- <thead>
-  <tr>
+ <table class="table table-striped table-sm">
+  <thead>
+   <tr>
     <th scope="col">Color code</th>
     <th scope="col">Color Name</th>
     <th scope="col">Product type</th>
     <th scope="col"></th>
-  </tr>
- </thead>
- <tbody>
-   {% if items is defined %}
+   </tr>
+  </thead>
+  <tbody>
+  {% if items is defined %}
     {% for dict_item in items %}
     <tr>
       <td>{{ dict_item.colorcode }}</td>
       <td>{{ dict_item.colorname }}</td>
       <td>{{ dict_item.ptype }}</td>
      <td>
+     {% if current_user.is_authenticated %}
       {% if "ADMIN" in current_user.roles() %}
-      <form method="POST" action="{{ url_for('cc_ptype_delete', ccid = dict_item.ccid, ptypeid = dict_item.ptypeid) }}" >
-	<button type="submit" class="btn btn-outline-primary">Delete</button>
-      </form>
-     {% endif %}
+       <form method="POST" action="{{ url_for('cc_ptype_delete', ccid = dict_item.ccid, ptypeid = dict_item.ptypeid) }}" >
+	 <button type="submit" class="btn btn-outline-primary">Delete</button>
+       </form>
+       {% endif %}
+      {% endif %}
      </td>
+     {% endfor %}
     </tr>
-    {% endfor %}
-   {% endif %}
+  {% endif %}
  </tbody>
 </table>
 

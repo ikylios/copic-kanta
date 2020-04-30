@@ -19,7 +19,7 @@ def cc_ptype_index():
 
 @app.route("/products/cc", methods=["GET"])
 def cc_only():
-    if not current_user.is_anonymous:
+    if not current_user.is_anonymous():
         if "ADMIN" in current_user.roles():
             return render_template("colorcode/listwdelete.html", items = Colorcode.cc_iterable(), form = CodeSearchForm())
     return render_template("colorcode/listccptype.html", items = Colorcode.cc_iterable(), form = CodeSearchForm())
@@ -27,7 +27,7 @@ def cc_only():
 
 @app.route("/products/ptype", methods=["GET"])
 def ptype_only():
-    if not current_user.is_anonymous:
+    if not current_user.is_anonymous():
         if "ADMIN" in current_user.roles():
             return render_template("colorcode/listwdelete.html", items = Ptype.ptype_iterable(), form = CodeSearchForm())
     return render_template("colorcode/listccptype.html", items = Ptype.ptype_iterable(), form = CodeSearchForm())
