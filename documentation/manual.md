@@ -1,6 +1,10 @@
 # Käyttöohje
 
 
+### Perusasiat Copic-huopakynistä
+
+Jokaisella huopakynällä on värikoodi, värikoodin nimi ja malli. Värikoodin alkuosa on yksi- tai kaksikirjaiminen, joista selviää värin englanninkielinen nimi. Näitä ovat esim. R (red), G (green), E (earth) ja BV(blue violet). Kaksikirjaimiset ovat siis "välisävyjä". Tämän jälkeen koodissa on numero-osuus, joka on satunnaisempi - tyypillisesti mitä pienempi luku on, sitä vaaleampi sävy on. YR000 on siis hyvin vaalea oranssi. Värikoodilla on myös siihen liittyvä nimi. Aikaisempi YR000 on nimeltään Silk. Tuotemalleja on muutama, esim. Ciao, Sketch ja Wide. Mallit eroavat mm. koossa, hinnassa ja sivellinpäissä. Erityistä on huomata, että kaikkia malleja ei myydä kaikissa väreissä. Kun huopakynästä loppuu muste, kynä voidaan täyttää uudelleen sävyn musteella. Tätä varten myydään mustepulloja.
+
 ## Vierailijoiden, käyttäjien ja adminin toiminnallisuudet
 
 
@@ -9,8 +13,8 @@ Näyttää tietokantaan lisätyt tuotteet. Adminina kirjautuneelle listassa on D
 
 ### Värikoodihaku
 Värikoodihaun avulla etsitään... värikoodeja. Haun Inclusive-checkbox hakee värikoodit, jotka sisältävät annetun hakutermin. Esimerkiksi:
-* **Hakutermi G** hakee kaikki G-alkuiset, eli vihreät värikoodit. G-merkkiä seuraa yksi tai useampi numero. Palauttaa esim. G14, G99, G000.
-* **Hakutermi BG** hakee kaikki BG-alkuiset, eli sinivihreät värikoodit. BG-merkkejä seuraa yksi tai useampi numero. Palautta esim. BG34, BG000, BG02.
+* **Hakutermi G** hakee kaikki G-alkuiset, eli vihreät värikoodit. G-merkkiä seuraa vähintään yksi numero. Palauttaa esim. G14, G99, G000.
+* **Hakutermi BG** hakee kaikki BG-alkuiset, eli sinivihreät värikoodit. BG-merkkejä seuraa vähintään yksi numero. Palauttaa esim. BG34, BG000, BG02.
 * **Hakutermi G + Inclusive** hakee kaikki G-merkin sisältävät värikoodit, eli YG, G ja BG -alkuiset koodit. Palauttaa esim. YG23, G07, BG00.
 * **Hakutermi R2** hakee R2-alkuiset värikoodit. Palauttaa esim. R24, R29.
 * **Hakutermi V0 + Inclusive** hakee V0-merkkijonon sisältävät värikoodit. Palauttaa esim. BV02, V000, RV06.
@@ -58,13 +62,15 @@ Tietokantaan lisätään ensin vähintään yksi tuotetyyppi, värikoodi ja tuot
 ## Tiedettyjä rajoituksia ja ongelmia
 * Tietokanta ei salli käyttäjän omistaa enempää kuin yhden kappaleen tiettyä tuotetta, vaikka käytännössä kahden saman tuotteen omistaminen on mahdollista.
 * Ei sivutusta
+* Hakukentän pitäisi validoida syöte, mutta jostain syystä ei tee niin
 
 ## Tulevia toiminnallisuuksia, parannuksia, yms.
 * Tehokkaampi värihaku togglattavilla nappuloilla, seuraavaan tapaan:
 ![colorsearch](https://github.com/ikylios/copic-kanta/blob/master/documentation/colorsearch.png)
-* Hakutoiminnallisuuden syventäminen: hakeminen tuotteen nimen perusteella
-* Varjostussävyjen merkitseminen
+* Hakutoiminnallisuuden syventäminen: hakeminen tuotteen värikoodin nimen perusteella
 * Toivelista
+* Tuotteen lisääminen omaan kokoelmaan suoraan View productsista
 * Etusivu, jolla näkyvät uudet tietokantaan lisätyt tuotteet
 * Listauksien suodatinnappien muokkaaminen siten, että aktiivisen suodattimen nappi on "active"
 * Ällöttävän copypaste-koodin poistaminen
+

@@ -9,6 +9,16 @@
                 " ORDER BY Colorcode.code"
 ```
 
+* Haluan nähdä listan kaikista värikoodeista.
+```
+"SELECT * FROM Colorcode"
+```
+
+* Haluan nähdä listan kaikista tuotemalleista.
+```
+"SELECT * FROM Ptype"
+```
+
 * Haluan listata omat esineeni.
 ```
 "SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.favorite, Item.date_created, Item.id"
@@ -64,9 +74,10 @@
 
 * Haluan nähdä suosituimmat värikoodit, jotta voin inspiroitua muiden käyttäjien vaikutuksesta.
 ```
-"SELECT Colorcode.code, Colorcode.name, COUNT(Colorcode.id)"
-                    " FROM Item"
-                    " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
-                    " GROUP BY Colorcode.id"
+"SELECT Colorcode.code, Colorcode.name, COUNT(Item.id)"
+                " FROM Colorcode"
+                " LEFT JOIN Item ON Item.colorcode_id = Colorcode.id"
+                " GROUP BY Colorcode.id"
+                " ORDER BY COUNT(Item.id) DESC"
 ```
 

@@ -23,8 +23,7 @@ class Colorcode(db.Model):
 
     @staticmethod
     def cc_iterable():
-        stmt = text("SELECT Colorcode.id, Colorcode.code, Colorcode.name" 
-                        " FROM Colorcode")
+        stmt = text("SELECT * FROM Colorcode")
         res = db.engine.execute(stmt)
 
         response = []

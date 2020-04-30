@@ -19,4 +19,10 @@ class CcForm(FlaskForm):
             csrf = False
 
 
+class CodeSearchForm(FlaskForm):
+     search = StringField([validators.Length(min=1, max=10), validators.InputRequired(), hasWhitespaceOnly])
+     incl = BooleanField()
+
+     class Meta:
+                csrf = False
 

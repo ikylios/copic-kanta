@@ -24,8 +24,7 @@ class Ptype(db.Model):
 
     @staticmethod
     def ptype_iterable():
-                stmt = text("SELECT Ptype.id, Ptype.name"
-                        " FROM Ptype")
+                stmt = text("SELECT * FROM Ptype")
                 res = db.engine.execute(stmt)
 
                 response = []
