@@ -90,7 +90,7 @@ class Cc_ptype(db.Model):
             condition += "LIKE '%" + searchterm + "%'"
         else:
 #            condition += "GLOB '" + searchterm + "[0-9]*'"
-            condition += "LIKE '" + searchterm + "[0-9]%'"
+            condition += "SIMILAR TO '" + searchterm + "[0-9]*'"
             if (searchterm == "0" or len(searchterm) >= 3):
                 condition = "LIKE '" + searchterm + "'"
 
