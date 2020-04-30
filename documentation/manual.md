@@ -40,7 +40,7 @@ Admineilla vasta hauskaa onkin. Adminit voivat lisätä tuotteita tietokantaan, 
 
 
 ### Värikoodin lisääminen ja poistaminen tietokannasta
-Uudet tuotetyypit lisätään Add to database -näkymässä Colorcode-kohdassa. Ohjelma ei hyväksy tyhjiä kenttiä eikä duplikaatteja. Annetun nimen täytyy olla 1-25 merkkiä pitkä. Värikoodi poistetaan View products -näkymän Colorcodes only -näkymän kautta.
+Uudet tuotetyypit lisätään Add to database -näkymässä Colorcode-kohdassa. Ohjelma ei hyväksy tyhjiä kenttiä eikä duplikaatteja. Annetun nimen täytyy olla 2-28 merkkiä pitkä. Värikoodi poistetaan View products -näkymän Colorcodes only -näkymän kautta.
 
 
 ### Tuotetyypin lisääminen ja poistaminen tietokannasta

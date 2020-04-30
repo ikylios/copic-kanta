@@ -12,8 +12,8 @@ def hasWhitespaceOnly(form, field):
 
 
 class CcForm(FlaskForm):
-        code = StringField("Code", [validators.Length(min=1, max=25), validators.InputRequired(), hasWhitespaceOnly])
-        name = StringField("Color name", [validators.Length(min=2, max=25), validators.InputRequired(), hasWhitespaceOnly])
+        code = StringField("Code", [validators.Length(min=1, max=10), validators.InputRequired(), hasWhitespaceOnly])
+        name = StringField("Color name", [validators.Length(min=2, max=28), validators.InputRequired(), hasWhitespaceOnly])
 
         class Meta:
             csrf = False
