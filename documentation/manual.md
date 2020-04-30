@@ -1,6 +1,21 @@
 # Käyttöohje
 
 
+## Vierailijoiden, käyttäjien ja adminin toiminnallisuudet
+
+
+### View products
+Näyttää tietokantaan lisätyt tuotteet. Adminina kirjautuneelle listassa on Delete-nappi tuotteen poistamista varten. Most popular colorcodes listaa värikoodit suosituimmasta vähiten suosituimpaan kaikkien käyttäjien kesken: lasketaan jokaisen värikoodin esiintymiskerrat Item-taulussa. Colorcodes only listaa tietokannassa olevat värikoodit, Product types only tekee saman product typeillä. Adminit voivat poistaa värikoodeja ja product typejä vastaavissa näkymissä. 
+
+### Värikoodihaku
+Värikoodihaun avulla etsitään... värikoodeja. Haun Inclusive-checkbox hakee värikoodit, jotka sisältävät annetun hakutermin. Esimerkiksi:
+* **Hakutermi G** hakee kaikki G-alkuiset, eli vihreät värikoodit. G-merkkiä seuraa yksi tai useampi numero. Palauttaa esim. G14, G99, G000.
+* **Hakutermi BG** hakee kaikki BG-alkuiset, eli sinivihreät värikoodit. BG-merkkejä seuraa yksi tai useampi numero. Palautta esim. BG34, BG000, BG02.
+* **Hakutermi G + Inclusive** hakee kaikki G-merkin sisältävät värikoodit, eli YG, G ja BG -alkuiset koodit. Palauttaa esim. YG23, G07, BG00.
+* **Hakutermi R2** hakee R2-alkuiset värikoodit. Palauttaa esim. R24, R29.
+* **Hakutermi V0 + Inclusive** hakee V0-merkkijonon sisältävät värikoodit. Palauttaa esim. BV02, V000, RV06.
+
+
 ## Käyttäjän toiminnallisuudet
 
 ### Käyttäjän luominen
@@ -14,17 +29,6 @@ Käyttäjät voivat lisätä tietokannassa olevia tuotteita Add an item to my co
 
 
 ### Käyttäjän ja adminin toiminnallisuudet
-
-### View products
-Näyttää tietokantaan lisätyt tuotteet. Adminina kirjautuneelle listassa on Delete-nappi tuotteen poistamista varten. Most popular colorcodes listaa värikoodit suosituimmasta vähiten suosituimpaan kaikkien käyttäjien kesken: lasketaan jokaisen värikoodin esiintymiskerrat Item-taulussa. Colorcodes only listaa tietokannassa olevat värikoodit, Product types only tekee saman product typeillä. Adminit voivat poistaa värikoodeja ja product typejä vastaavissa näkymissä. 
-
-### Värikoodihaku
-Värikoodihaun avulla etsitään... värikoodeja. Haun Inclusive-checkbox hakee värikoodit, jotka sisältävät annetun hakutermin. Esimerkiksi:
-* Hakutermi G hakee kaikki G-alkuiset, eli vihreät värikoodit
-* Hakutermi BG hakee kaikki BG-alkuiset, eli sinivihreät värikoodit
-* Hakutermi G + Inclusive hakee kaikki G-merkin sisältävät värikoodit, eli YG, G ja BG -alkuiset koodit.
-* Hakutermi R2 hakee R2-alkuiset värikoodit, palauttaa esimerkiksi R24, R29.
-* Hakutermi V0 + Inclusive hakee V0-merkkijonon sisältävät värikoodit, palauttaa esimerkiksi BV02, V000, RV06
 
 ## Admin-oikeudella varustetut käyttäjät
 Admineilla vasta hauskaa onkin. Adminit voivat lisätä tuotteita tietokantaan, joita käyttäjät voivat lisätä omiin kokoelmiinsa. Lisäksi adminit voivat lisätä uusia tuotetyyppejä. List users' items -näkymässä adminit näkevät kaikkien käyttäjien tavarat.
@@ -54,10 +58,12 @@ Tietokantaan lisätään ensin vähintään yksi tuotetyyppi, värikoodi ja tuot
 Tietokanta ei salli käyttäjän omistaa enempää kuin yhden kappaleen tiettyä tuotetta, vaikka käytännössä kahden saman tuotteen omistaminen on mahdollista.
 
 
-## Tulevia toiminnallisuuksia
-* Hienostuneempi värihaku nappuloilla, seuraavaan tapaan:
+## Tulevia toiminnallisuuksia, parannuksia, yms.
+* Tehokkaampi värihaku togglattavilla nappuloilla, seuraavaan tapaan:
 ![colorsearch](https://github.com/ikylios/copic-kanta/blob/master/documentation/colorsearch.png)
+* Hakutoiminnallisuuden syventäminen: hakeminen tuotteen nimen perusteella
 * Varjostussävyjen merkitseminen
 * Toivelista
 * Etusivu, jolla näkyvät uudet tietokantaan lisätyt tuotteet
 * Listauksien suodatinnappien muokkaaminen siten, että aktiivisen suodattimen nappi on "active"
+* Ällöttävän copypaste-koodin poistaminen

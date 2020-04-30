@@ -7,4 +7,11 @@ Herokun sivuilla ohjelma käynnistyy klikkaamalla GitHubin etusivulla olevaa Her
 
 ### Paikallisesti
 
-Lataa projekti tietokoneellesi. Siirry komentorivillä kansioon `/copic-kanta-master/` ja suorita komento `python3 run.py`. Älä sulje komentoriviä. Avaa selain ja kirjoita osoitekenttään osoite `http://localhost:5000`. Sulje ohjelma komennolla `Ctrl+C` selainta suorittavalla komentorivillä.
+1. Lataa projekti tietokoneellesi. 
+2. Koodihaun toimimintaan paikallisesti täytyy muokata hieman koodia. Kansiossa `~/copic-kanta/application/colorcode` on tiedosto `models.py`. Rivi 92 on kommentoitu ulos #-merkillä rivin alussa. Poista tämä merkki. Tämän jälkeen kommentoi rivi 93 samaan tapaan ulos: laita risuaita rivin alkuun. Nyt koodihaku osaa suorittaa SQL-komennon sqliten syntaksilla.
+3. Laitetaan ohjelma käyntiin. Siirry komentorivillä kansioon `/copic-kanta-master/` ja suorita komento `python3 run.py`. Älä sulje komentoriviä. 
+4. Avaa selain ja kirjoita osoitekenttään osoite `http://localhost:5000`
+5. Suorita copic-tarpeitasi. 
+
+
+Ohjelma suljetaan komennolla `Ctrl+C` selainta suorittavalla komentorivillä.
