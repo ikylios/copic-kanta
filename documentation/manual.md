@@ -16,6 +16,9 @@ Värikoodihaun avulla etsitään... värikoodeja. Haun Inclusive-checkbox hakee 
 * **Hakutermi V0 + Inclusive** hakee V0-merkkijonon sisältävät värikoodit. Palauttaa esim. BV02, V000, RV06.
 
 
+Tällä hetkellä haku näkyy Colorcodes only- ja Product types only -näkymissä, vaikka haku suoritetaan vain tuotelistasta. Siis haku ei hae Colorcodes only -sivulla pelkkiä värikoodeja. Näissä näkymissä suoritettavat haut siis ohjaavat käyttäjän takaisin suodattamattomaan näkymään tuotelistasta.
+
+
 ## Käyttäjän toiminnallisuudet
 
 ### Käyttäjän luominen
@@ -55,8 +58,8 @@ Tietokantaan lisätään ensin vähintään yksi tuotetyyppi, värikoodi ja tuot
 
 
 ## Tiedettyjä rajoituksia ja ongelmia
-Tietokanta ei salli käyttäjän omistaa enempää kuin yhden kappaleen tiettyä tuotetta, vaikka käytännössä kahden saman tuotteen omistaminen on mahdollista.
-
+* Tietokanta ei salli käyttäjän omistaa enempää kuin yhden kappaleen tiettyä tuotetta, vaikka käytännössä kahden saman tuotteen omistaminen on mahdollista.
+* Ei sivutusta
 
 ## Tulevia toiminnallisuuksia, parannuksia, yms.
 * Tehokkaampi värihaku togglattavilla nappuloilla, seuraavaan tapaan:

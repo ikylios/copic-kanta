@@ -27,17 +27,17 @@ def index():
 def items_index():
         return render_template("items/list.html", general_index = Item.general_index())
 
-@app.route("/items/myitems/", methods=["GET"])
+@app.route("/myitems/", methods=["GET"])
 @login_required(role="USER")
 def items_myindex():
     return render_template("items/listpersonal.html", items = Item.personal_index(str(current_user.id)), form = CodeSearchForm())
 
 
-@app.route("/items/myitems/lowink/", methods=["GET"])
+@app.route("/myitems/lowink/", methods=["GET"])
 def items_lowink():
     return render_template("items/listpersonal.html", items = Item.find_lowink(str(current_user.id)), form = CodeSearchForm())
 
-@app.route("/items/myitems/favorite/", methods=["GET"])
+@app.route("/myitems/favorite/", methods=["GET"])
 def items_favorite():
     return render_template("items/listpersonal.html", items = Item.find_favorite(str(current_user.id)), form = CodeSearchForm())
 
@@ -47,13 +47,13 @@ def items_favorite():
 def items_by_user():
     return render_template("items/list.html", general_index = User.by_user())
 
-@app.route("/items/myitems/date", methods=["GET"])
+@app.route("/myitems/date", methods=["GET"])
 @login_required(role="USER")
 def items_date_added():
     return render_template("items/listpersonal.html", items = Item.date_added(str(current_user.id)), form = CodeSearchForm())
 
 
-@app.route("/items/myitems/setink/<item_id>/", methods=["POST"])
+@app.route("/myitems/setink/<item_id>/", methods=["POST"])
 @login_required
 def items_set_lowink(item_id):
 
@@ -68,7 +68,7 @@ def items_set_lowink(item_id):
     return redirect(url_for("index"))
 
 
-@app.route("/items/myitems/setfav/<item_id>/", methods=["POST"])
+@app.route("/myitems/setfav/<item_id>/", methods=["POST"])
 @login_required
 def items_set_favorite(item_id):
 
@@ -96,7 +96,7 @@ def items_delete(item_id):
     return redirect(url_for("index"))
 
 
-@app.route("/items/myitems/codesearch", methods=["POST"])
+@app.route("/myitems/codesearch", methods=["POST"])
 @login_required(role="USER")
 def item_codesearch():
 
@@ -108,7 +108,7 @@ def item_codesearch():
     return render_template("items/listpersonal.html", items = Item.codesearch(str(current_user.id), form.incl.data, form.search.data), form = CodeSearchForm())
 
 
-@app.route("/items/myitems/new", methods=["GET", "POST"])
+@app.route("/myitems/new", methods=["GET", "POST"])
 @login_required
 def item_form():
 

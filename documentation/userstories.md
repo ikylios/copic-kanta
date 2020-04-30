@@ -1,6 +1,6 @@
 ## Toiminnallisuuksia
 
-* Haluan nähdä listan kaikista Copic-tuotteista, jotta voin suunnitella toivelistaani.
+* Haluan nähdä listan kaikista Copic-tuotteista.
 ```
 "SELECT Colorcode.code, Colorcode.name, Ptype.name, Colorcode.id, Ptype.id"
                 " FROM Cc_ptype"
@@ -21,6 +21,16 @@
                         " ORDER BY Colorcode.code"
 ```
 
+* Haluan listata lempisävyni.
+```
+"SELECT Colorcode.code, Colorcode.name, Ptype.name, Item.lowink, Item.favorite, Item.date_created, Item.id"
+                    " FROM Item"
+                    " JOIN Colorcode ON Item.colorcode_id = Colorcode.id"
+                    " JOIN Ptype ON Item.ptype_id = Ptype.id"
+                    " WHERE Item.account_id = " + user_id +
+                    " AND Item.favorite = '1'"
+                    " ORDER BY Colorcode.code"
+```
 
 * Haluan pystyä tarkistamaan, omistanko jonkin tietyn värikoodin esineitä, etten osta vahingossa duplikaatteja.
 ```
