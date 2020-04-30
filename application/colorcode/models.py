@@ -23,7 +23,7 @@ class Colorcode(db.Model):
 
     @staticmethod
     def cc_iterable():
-        stmt = text("SELECT * FROM Colorcode")
+        stmt = text("SELECT Colorcode.id, Colorcode.code, Colorcode.name FROM Colorcode")
         res = db.engine.execute(stmt)
 
         response = []
@@ -90,7 +90,7 @@ class Cc_ptype(db.Model):
         else:
 #            condition += "GLOB '" + searchterm + "[0-9]*'"
             condition += "SIMILAR TO '" + searchterm + "[0-9]*'"
-            if (searchterm == "0" or len(searchterm) >= 3):
+            if (searchterm == "0"):
                 condition = "LIKE '" + searchterm + "'"
 
         stmt = text("SELECT Colorcode.code, Colorcode.name, Ptype.name"

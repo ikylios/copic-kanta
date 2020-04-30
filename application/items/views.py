@@ -87,7 +87,7 @@ def items_set_favorite(item_id):
 def items_delete(item_id):
     
     owned = Item.query.filter(Item.id == item_id, Item.account_id == current_user.id).first()
-    if owned:
+    if owned or "ADMIN" in current_user.roles():
         item = Item.query.get(item_id)
         db.session.delete(item)
         db.session().commit()
